@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install*)",
+      "Bash(npm run*)",
+      "Bash(npx *)",
+      "Bash(pip install*)",
+      "Bash(python *)",
+      "Bash(uvicorn *)",
+      "Bash(playwright install*)",
+      "Bash(curl *)",
+      "Bash(git *)",
+      "Bash(gh *)",
+      "Bash(ls *)",
+      "Bash(mkdir *)",
+      "Bash(cat *)",
+      "Bash(ruff *)",
+      "Bash(prettier *)",
+      "Bash(tsc *)",
+      "Bash(ncc *)"
+    ]
+  }
+}

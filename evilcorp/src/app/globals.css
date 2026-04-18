@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-inter);
+  --color-evil-red: #dc2626;
+  --color-evil-red-dark: #991b1b;
+  --color-evil-glow: rgba(220, 38, 38, 0.15);
+}
+
+body {
+  background: #09090b;
+  color: #fafafa;
+}
+
+::selection {
+  background: rgba(220, 38, 38, 0.3);
+}
+
+/* Subtle grid background */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Glow effect for hero */
+.glow-red {
+  box-shadow: 0 0 80px rgba(220, 38, 38, 0.2), 0 0 160px rgba(220, 38, 38, 0.1);
+}
+
+/* ToS text styling - intentionally hard to read */
+.tos-text {
+  font-size: 8.5px;
+  line-height: 1.15;
+  color: #52525b;
+  letter-spacing: -0.01em;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.tos-text[contenteditable="true"] {
+  outline: 1px solid rgba(220, 38, 38, 0.3);
+  background: rgba(220, 38, 38, 0.02);
+  cursor: text;
+}
+
+/* Fade in */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animate-fade-in-delay {
+  animation: fadeIn 0.8s ease-out 0.2s forwards;
+  opacity: 0;
+}
+
+/* Scroll indicator pulse */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+.animate-bounce-slow {
+  animation: bounce 2s ease-in-out infinite;
+}

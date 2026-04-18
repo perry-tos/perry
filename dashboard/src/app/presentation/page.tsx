@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Navbar } from "@/components/navbar";
 
-const SLIDE_COUNT = 8;
+const SLIDE_COUNT = 7;
 
 export default function PresentationPage() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -286,28 +286,6 @@ export default function PresentationPage() {
           </div>
         </Slide>
 
-        {/* Slide 8 — Close */}
-        <Slide idx={7} registerSlide={registerSlide}>
-          <div className="flex flex-col items-center text-center">
-            <Image
-              src="/perry-logo.png"
-              alt="Perry"
-              width={360}
-              height={118}
-              className="h-auto w-[clamp(200px,26vw,360px)]"
-            />
-            <p className="mt-8 text-[clamp(22px,2.6vw,34px)] font-medium tracking-tight text-foreground">
-              Your legal early-warning system.
-            </p>
-            <p className="mt-10 text-[15px] text-muted max-w-xl">
-              Built in 10 hours at the Lund University Hackathon 2026 by four
-              students who have already read too many Terms of Service.
-            </p>
-            <p className="mt-4 text-[13px] font-mono uppercase tracking-widest text-muted/60">
-              Thank you — questions?
-            </p>
-          </div>
-        </Slide>
       </div>
 
       {/* Progress dots */}

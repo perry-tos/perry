@@ -133,8 +133,10 @@ export default function PresentationPage() {
             />
             <p className="mt-10 text-[clamp(24px,3vw,40px)] leading-tight font-medium tracking-tight text-foreground max-w-3xl">
               Terms changed.{" "}
-              <span className="text-muted">You didn&apos;t notice.</span> Perry
-              did.
+              <span className="text-muted">You didn&apos;t notice.</span>{" "}
+              <span className="underline decoration-[6px] decoration-[#E89D3A] underline-offset-[6px]">
+                Perry did.
+              </span>
             </p>
           </div>
         </Slide>

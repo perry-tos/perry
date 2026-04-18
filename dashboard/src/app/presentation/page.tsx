@@ -92,9 +92,11 @@ export default function PresentationPage() {
           <div className="max-w-4xl mx-auto text-center">
             <SlideEyebrow>The problem</SlideEyebrow>
             <h2 className="mt-6 text-[clamp(32px,4.5vw,64px)] leading-[1.05] font-semibold tracking-[-0.02em]">
-              Overnight, Stripe added{" "}
-              <span className="text-danger">two new partners </span> to your
-              customers&apos; data.
+              Overnight, Stripe gave{" "}
+              <span className="underline decoration-[6px] decoration-[#E89D3A] underline-offset-[6px]">
+                two new partners
+              </span>{" "}
+              access to your customers&apos; data.
             </h2>
             <p className="mt-8 text-[15px] font-mono uppercase tracking-widest text-muted/70">
               You have no idea.
@@ -107,11 +109,13 @@ export default function PresentationPage() {
           <div className="max-w-4xl mx-auto text-center">
             <SlideEyebrow>Why it keeps happening</SlideEyebrow>
             <h2 className="mt-6 text-[clamp(32px,4.5vw,64px)] leading-[1.05] font-semibold tracking-[-0.02em]">
-              A small company runs on{" "}
-              <span className="text-danger">ten-plus providers.</span>
+              Countless dependencies.{" "}
+              <span className="underline decoration-[6px] decoration-[#E89D3A] underline-offset-[6px]">
+                Stripe could have been one of them.
+              </span>
             </h2>
             <p className="mt-8 text-[15px] font-mono uppercase tracking-widest text-muted/70">
-              The information isn&apos;t hidden. It just never reaches you.
+              You can&apos;t possibly track them all.
             </p>
           </div>
         </Slide>
@@ -277,7 +281,7 @@ function SlideEyebrow({
 }) {
   return (
     <span
-      className={`text-[12px] font-mono uppercase tracking-[0.2em] text-muted/70 ${className}`}
+      className={`text-[12px] font-mono uppercase tracking-[0.2em] text-[#5C2A2A] ${className}`}
     >
       {children}
     </span>

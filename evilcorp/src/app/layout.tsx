@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -7,10 +7,16 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+});
+
 export const metadata: Metadata = {
-  title: "Evil Incorporation — Enterprise Intelligence Solutions",
+  title: "Meridian Global — Institutional Data Infrastructure",
   description:
-    "Powering the next generation of enterprise data intelligence. Trusted by 10,000+ organizations worldwide.",
+    "Meridian provides sovereign-grade data infrastructure to the world's leading financial, insurance, and governmental institutions.",
 };
 
 export default function RootLayout({
@@ -19,10 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} dark`}>
-      <body className="min-h-screen bg-zinc-950 text-zinc-100 font-sans antialiased">
-        {children}
-      </body>
+    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+      <body className="min-h-screen antialiased">{children}</body>
     </html>
   );
 }

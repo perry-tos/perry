@@ -100,7 +100,8 @@ export default function PresentationPage() {
             />
             <p className="mt-10 text-[clamp(24px,3vw,40px)] leading-tight font-medium tracking-tight text-foreground max-w-3xl">
               Terms changed.{" "}
-              <span className="text-muted">You didn&apos;t notice.</span>
+              <span className="text-muted">You didn&apos;t notice.</span> Perry
+              did.
             </p>
             <p className="mt-4 text-[17px] text-muted">
               Press{" "}
@@ -251,7 +252,7 @@ export default function PresentationPage() {
               href="/demo"
               className="inline-flex items-center gap-2.5 mt-12 bg-foreground text-white text-[15px] font-medium px-7 py-3 rounded-full transition-all hover:bg-foreground/85 active:scale-[0.97] shadow-lg shadow-black/10"
             >
-              Open God Mode
+              Open Demo Mode
               <svg
                 width="14"
                 height="14"

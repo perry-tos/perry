@@ -87,7 +87,7 @@ export default function DemoPage() {
                 Live Demo
               </h1>
               <span className="text-[11px] font-mono text-white bg-foreground px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                God Mode
+                Demo Mode
               </span>
             </div>
             <p className="text-[15px] text-muted">

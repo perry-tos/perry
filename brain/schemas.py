@@ -15,17 +15,19 @@ class DiffAnalyzeRequest(BaseModel):
 class BreakingChange(BaseModel):
     clause_ref: str = Field(
         ...,
-        description="Clause reference from the new document, e.g. '§3.2'",
+        description="Short clause ref from the NEW doc, e.g. '§3.2'. No sentences.",
     )
     description: str = Field(
         ...,
-        description="Plain-language description of what changed in this clause",
+        description=(
+            "What the NEW clause says, ~25 words max. Plain, no hedging."
+        ),
     )
     developer_impact: str = Field(
         ...,
         description=(
-            "Concrete impact on engineering: affected endpoints, fields, "
-            "quotas, retention windows, or billing tiers"
+            "Concrete nouns only (SDK methods, endpoints, fields, quotas, "
+            "retention windows, billing tiers). ~15 words max."
         ),
     )
 
@@ -45,12 +47,18 @@ class PackageChange(BaseModel):
     )
     summary: str = Field(
         ...,
-        description="One-paragraph executive summary scoped to this package",
+        description=(
+            "ONE sentence, ~25 words max, scoped to this SDK's surface. "
+            "What changed for code using this package."
+        ),
     )
     breaking_changes: list[BreakingChange] = Field(default_factory=list)
     recommended_actions: list[str] = Field(
         default_factory=list,
-        description="Imperative, package-scoped action items",
+        description=(
+            "Imperative, tech-specific action items, ~12 words each. "
+            "Name SDK methods, version pins, or config flags."
+        ),
     )
     dev_action_required: bool = Field(
         ...,
@@ -66,7 +74,10 @@ class DiffAnalysis(BaseModel):
     )
     summary: str = Field(
         ...,
-        description="Provider-wide executive summary of the diff",
+        description=(
+            "Provider-wide headline: 1-2 sentences, ~40 words max. Lead with "
+            "the biggest change and its dev-facing consequence. No legal prose."
+        ),
     )
     packages: list[PackageChange] = Field(
         default_factory=list,

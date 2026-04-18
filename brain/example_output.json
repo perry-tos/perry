@@ -1,0 +1,130 @@
+{
+  "analysis": {
+    "provider": "OpenAI",
+    "overall_severity": "CRITICAL",
+    "summary": "Three material changes appear in the new OpenAI Terms of Use: (1) §3.2 now permits OpenAI to use API Content from `/v1/chat/completions` and `/v1/responses` for model training effective May 1 2026, reversing the prior blanket prohibition — opt-out or Enterprise subscription required; (2) §3.3 extends the data-retention window for affected traffic from 30 days to 90 days; (3) §4 immediately reduces the default tier-1 rate limit on gpt-4o endpoints from 10,000 RPM to 3,500 RPM (a 65% cut). All three changes require engineering and/or compliance action across every OpenAI-touching SDK in the registry.",
+    "packages": [
+      {
+        "package_name": "openai",
+        "ecosystem": "pypi",
+        "severity": "CRITICAL",
+        "summary": "The Python SDK is directly exposed to all three breaking policy changes. The training-opt-out requirement (§3.2) means any production app calling `/v1/chat/completions` or `/v1/responses` must either upgrade to Enterprise or programmatically confirm opt-out before May 1 2026. The retention window for non-opted-out traffic doubles to 90 days (§3.3). The immediate 65% RPM reduction on gpt-4o (§4) will cause 429 errors for any client currently operating above 3,500 RPM without a tier upgrade.",
+        "breaking_changes": [
+          {
+            "clause_ref": "§3.2",
+            "description": "OpenAI may now use API Content from /v1/chat/completions and /v1/responses for model training effective May 1 2026, unless the account is on an Enterprise plan or has explicitly opted out via the Data Controls dashboard at least 24 hours before that date. The prior policy was an unconditional prohibition on using API Content for training.",
+            "developer_impact": "Any call to `client.chat.completions.create()` or `client.responses.create()` will have its payload used for training by default. Applications handling PII, confidential data, or regulated content must opt out or migrate to Enterprise before 2026-05-01."
+          },
+          {
+            "clause_ref": "§3.3",
+            "description": "Data retention for API Content subject to §3.2 is extended from 30 days to 90 days to support model-training pipelines. Only Enterprise and opted-out traffic retains the 30-day window.",
+            "developer_impact": "Data-retention SLAs, privacy policies, and DPA commitments that relied on the 30-day deletion guarantee for `/v1/chat/completions` and `/v1/responses` payloads are now violated for non-opted-out accounts. Retention period field in audit logs and compliance tooling must be updated."
+          },
+          {
+            "clause_ref": "§4 (Rate Limits)",
+            "description": "Default tier-1 rate limit on gpt-4o endpoints is immediately reduced from 10,000 RPM to 3,500 RPM.",
+            "developer_impact": "Clients using `client.chat.completions.create(model='gpt-4o', ...)` at throughputs above 3,500 RPM will receive HTTP 429 responses. Retry/backoff logic, concurrency pools, and load-test baselines must be recalibrated."
+          }
+        ],
+        "recommended_actions": [
+          "Before 2026-04-30, call the Data Controls dashboard API or manually opt out to prevent training use of payloads sent via `client.chat.completions.create()` and `client.responses.create()`.",
+          "Audit all data flows through the Python SDK for PII or regulated content; if present, upgrade to an Enterprise plan or confirm opt-out is in place.",
+          "Update internal data-retention documentation and DPAs to reflect the new 90-day window for non-opted-out traffic.",
+          "Immediately instrument 429-rate-limit error handling and reduce default concurrency/RPM targets to ≤3,500 RPM for gpt-4o endpoints; request a tier upgrade if higher throughput is required.",
+          "Add a CI assertion that verifies the opt-out status via the OpenAI account API before each production deployment."
+        ],
+        "dev_action_required": true
+      },
+      {
+        "package_name": "openai",
+        "ecosystem": "npm",
+        "severity": "CRITICAL",
+        "summary": "The Node.js SDK surfaces the same three breaking policy changes as the Python SDK. All production applications calling `/v1/chat/completions` or `/v1/responses` through the npm package are subject to the new training-opt-out requirement, the 90-day retention window, and the immediate 3,500 RPM cap on gpt-4o.",
+        "breaking_changes": [
+          {
+            "clause_ref": "§3.2",
+            "description": "OpenAI may now use API Content from /v1/chat/completions and /v1/responses for model training effective May 1 2026, unless opted out or on Enterprise. Prior policy was an unconditional prohibition.",
+            "developer_impact": "Any call to `openai.chat.completions.create()` or `openai.responses.create()` in Node.js applications will have its payload used for training by default. Applications handling PII or regulated content must opt out before 2026-05-01."
+          },
+          {
+            "clause_ref": "§3.3",
+            "description": "Data retention for non-opted-out API Content extended from 30 days to 90 days.",
+            "developer_impact": "Node.js services with 30-day data-deletion guarantees in their privacy policies or DPAs are now non-compliant for traffic through `openai.chat.completions.create()` and `openai.responses.create()` unless opted out."
+          },
+          {
+            "clause_ref": "§4 (Rate Limits)",
+            "description": "Default tier-1 rate limit on gpt-4o endpoints immediately reduced from 10,000 RPM to 3,500 RPM.",
+            "developer_impact": "Node.js clients calling gpt-4o above 3,500 RPM will receive HTTP 429 errors. Concurrency limits, queue depths, and retry strategies in the npm SDK integration must be updated."
+          }
+        ],
+        "recommended_actions": [
+          "Before 2026-04-30, confirm opt-out via the Data Controls dashboard for all Node.js services invoking `openai.chat.completions.create()` or `openai.responses.create()`.",
+          "Audit Node.js data flows for PII or regulated content; escalate to Enterprise plan if opt-out is insufficient.",
+          "Update DPAs and privacy notices to reflect the 90-day retention window for non-opted-out traffic.",
+          "Immediately lower concurrency and RPM caps to ≤3,500 RPM for gpt-4o in all Node.js services; add 429 retry-with-backoff handling.",
+          "Request a tier upgrade via the OpenAI dashboard if throughput above 3,500 RPM is required."
+        ],
+        "dev_action_required": true
+      },
+      {
+        "package_name": "langchain-openai",
+        "ecosystem": "pypi",
+        "severity": "HIGH",
+        "summary": "LangChain's Python OpenAI integration wraps `ChatOpenAI` and `OpenAIEmbeddings`, both of which route through `/v1/chat/completions`. The training-opt-out requirement and 90-day retention change in §3.2–3.3 apply to all LangChain chains and agents using these classes. The RPM reduction in §4 will cause 429 errors in high-throughput LangChain pipelines targeting gpt-4o.",
+        "breaking_changes": [
+          {
+            "clause_ref": "§3.2",
+            "description": "API Content sent through ChatOpenAI (which calls /v1/chat/completions) may now be used for model training by default from May 1 2026.",
+            "developer_impact": "All LangChain chains, agents, and RAG pipelines using `ChatOpenAI(model='gpt-4o')` or similar will have their prompts and completions used for training unless the account is opted out. Sensitive document contents passed as context are at risk."
+          },
+          {
+            "clause_ref": "§4 (Rate Limits)",
+            "description": "gpt-4o tier-1 RPM immediately reduced from 10,000 to 3,500.",
+            "developer_impact": "High-throughput LangChain batch pipelines using `ChatOpenAI` with gpt-4o will hit 429 rate-limit errors. `max_concurrency` settings in chains and agents must be reduced."
+          }
+        ],
+        "recommended_actions": [
+          "Ensure the underlying OpenAI account is opted out of training data use before 2026-04-30 for all environments running langchain-openai pipelines.",
+          "Reduce `max_concurrency` and add exponential-backoff retry logic in `ChatOpenAI` configurations to stay within the 3,500 RPM gpt-4o limit.",
+          "Review LangChain memory and document-loader components for PII that would be sent to /v1/chat/completions and apply data-masking if opt-out is not confirmed."
+        ],
+        "dev_action_required": true
+      },
+      {
+        "package_name": "@langchain/openai",
+        "ecosystem": "npm",
+        "severity": "HIGH",
+        "summary": "The LangChain JS OpenAI integration routes through `/v1/chat/completions` via `ChatOpenAI`. It is subject to the same training-opt-out requirement (§3.2), 90-day retention change (§3.3), and immediate gpt-4o RPM reduction (§4) as the Python counterpart.",
+        "breaking_changes": [
+          {
+            "clause_ref": "§3.2",
+            "description": "API Content sent through the JS ChatOpenAI class (calling /v1/chat/completions) may be used for model training by default from May 1 2026.",
+            "developer_impact": "All JS LangChain chains and agents using `new ChatOpenAI({model: 'gpt-4o'})` will have prompt/completion payloads used for training unless the account is opted out. Sensitive user data in prompts is at risk."
+          },
+          {
+            "clause_ref": "§4 (Rate Limits)",
+            "description": "gpt-4o tier-1 RPM immediately reduced from 10,000 to 3,500.",
+            "developer_impact": "High-throughput JS LangChain pipelines using ChatOpenAI with gpt-4o will encounter HTTP 429 errors. Concurrency and rate-limiting middleware must be updated."
+          }
+        ],
+        "recommended_actions": [
+          "Confirm opt-out of training data use via the OpenAI Data Controls dashboard before 2026-04-30 for all environments running @langchain/openai.",
+          "Reduce concurrency in `ChatOpenAI` JS configurations and implement retry-with-backoff to respect the new 3,500 RPM gpt-4o limit.",
+          "Audit prompt templates and document inputs for PII; apply redaction before passing to ChatOpenAI if opt-out cannot be guaranteed."
+        ],
+        "dev_action_required": true
+      }
+    ]
+  },
+  "broadcast": {
+    "dispatched": 0,
+    "failed": 1,
+    "results": [
+      {
+        "repo": "HugoMautner/perry-test-target",
+        "ok": false,
+        "detail": "403: {\"message\":\"Resource not accessible by integration\",\"documentation_url\":\"https://docs.github.com/rest/repos/repos#create-a-repository-dispatch-event\",\"status\":\"403\"}"
+      }
+    ]
+  }
+}

@@ -2,6 +2,9 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
+Severity = Literal["CRITICAL", "HIGH", "MEDIUM", "LOW"]
+Ecosystem = Literal["pypi", "npm", "cargo", "go", "maven", "rubygems"]
+
 
 class DiffAnalyzeRequest(BaseModel):
     old_markdown: str = Field(..., description="Previous ToS version as markdown")
@@ -12,7 +15,7 @@ class DiffAnalyzeRequest(BaseModel):
 class BreakingChange(BaseModel):
     clause_ref: str = Field(
         ...,
-        description="Section or clause reference, e.g. '§3.2' or 'Section 4.1'",
+        description="Clause reference from the new document, e.g. '§3.2'",
     )
     description: str = Field(
         ...,
@@ -21,35 +24,56 @@ class BreakingChange(BaseModel):
     developer_impact: str = Field(
         ...,
         description=(
-            "Concrete impact on engineering: affected SDKs, endpoints, "
-            "rate limits, retention windows, or behavioral defaults"
+            "Concrete impact on engineering: affected endpoints, fields, "
+            "quotas, retention windows, or billing tiers"
         ),
+    )
+
+
+class PackageChange(BaseModel):
+    package_name: str = Field(
+        ...,
+        description="Package identifier matching a manifest entry (e.g. 'openai')",
+    )
+    ecosystem: Ecosystem = Field(
+        ...,
+        description="Package ecosystem — tells the edge bot which manifest to scan",
+    )
+    severity: Severity = Field(
+        ...,
+        description="Severity scoped to this package's exposure",
+    )
+    summary: str = Field(
+        ...,
+        description="One-paragraph executive summary scoped to this package",
+    )
+    breaking_changes: list[BreakingChange] = Field(default_factory=list)
+    recommended_actions: list[str] = Field(
+        default_factory=list,
+        description="Imperative, package-scoped action items",
+    )
+    dev_action_required: bool = Field(
+        ...,
+        description="True iff this package requires engineering work",
     )
 
 
 class DiffAnalysis(BaseModel):
     provider: str = Field(..., description="Provider/company name whose ToS changed")
-    severity: Literal["CRITICAL", "HIGH", "MEDIUM", "LOW"] = Field(
+    overall_severity: Severity = Field(
         ...,
-        description=(
-            "CRITICAL = breaking API/data-ownership changes or immediate legal exposure. "
-            "HIGH = action needed within 30 days, pricing/rate-limit reductions. "
-            "MEDIUM = default behavior shifts that are opt-out or future-dated. "
-            "LOW = cosmetic rewording, no behavioral change."
-        ),
+        description="Maximum severity across all affected packages",
     )
     summary: str = Field(
         ...,
-        description="One-paragraph executive summary of the overall change",
+        description="Provider-wide executive summary of the diff",
     )
-    breaking_changes: list[BreakingChange] = Field(default_factory=list)
-    recommended_actions: list[str] = Field(
+    packages: list[PackageChange] = Field(
         default_factory=list,
-        description="Concrete, imperative action items for engineering teams",
-    )
-    dev_action_required: bool = Field(
-        ...,
-        description="True iff at least one recommended_action requires engineering work",
+        description=(
+            "One entry per SDK/library materially affected by the diff. "
+            "Unaffected packages are omitted."
+        ),
     )
 
 

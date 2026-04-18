@@ -5,16 +5,21 @@ from supabase import Client, create_client
 
 load_dotenv()
 
-OPENAI_API_KEY: str | None = os.getenv("OPENAI_API_KEY")
+ANTHROPIC_API_KEY: str | None = os.getenv("ANTHROPIC_API_KEY")
 GITHUB_APP_ID: str | None = os.getenv("GITHUB_APP_ID")
 
 _raw_private_key: str = os.getenv("GITHUB_APP_PRIVATE_KEY", "")
+_private_key_path: str = os.getenv("GITHUB_APP_PRIVATE_KEY_PATH", "")
+if not _raw_private_key and _private_key_path and os.path.exists(_private_key_path):
+    with open(_private_key_path, "r") as _pem_file:
+        _raw_private_key = _pem_file.read()
 GITHUB_APP_PRIVATE_KEY: str = _raw_private_key.replace("\\n", "\n")
 
 SUPABASE_URL: str | None = os.getenv("SUPABASE_URL")
 SUPABASE_KEY: str | None = os.getenv("SUPABASE_KEY")
 
-OPENAI_MODEL: str = os.getenv("OPENAI_MODEL", "gpt-4o")
+ANTHROPIC_MODEL: str = os.getenv("ANTHROPIC_MODEL", "claude-sonnet-4-6")
+ANTHROPIC_MAX_TOKENS: int = int(os.getenv("ANTHROPIC_MAX_TOKENS", "4096"))
 
 _supabase_client: Client | None = None
 

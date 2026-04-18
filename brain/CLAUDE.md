@@ -2,7 +2,7 @@
 
 ## Responsibility
 
-Receives old/new ToS markdown from the Crawler, uses GPT-4o with structured output to analyze the diff, then broadcasts the alert to all registered customer GitHub repos via GitHub App authentication.
+Receives old/new ToS markdown from the Crawler, uses Claude Sonnet with structured output to analyze the diff, then broadcasts the alert to all registered customer GitHub repos via GitHub App authentication.
 
 ## Stack
 
@@ -10,7 +10,7 @@ Receives old/new ToS markdown from the Crawler, uses GPT-4o with structured outp
 - FastAPI + uvicorn
 - Instructor (structured LLM output)
 - Pydantic v2 (strict schema validation)
-- OpenAI Python SDK (GPT-4o)
+- Anthropic Python SDK (Claude Sonnet)
 - PyJWT (RS256 JWT generation for GitHub App auth)
 - Requests / httpx (GitHub API calls)
 - Supabase Python client
@@ -19,22 +19,49 @@ Receives old/new ToS markdown from the Crawler, uses GPT-4o with structured outp
 
 | File | Purpose |
 |------|---------|
-| `main.py` | FastAPI app with `/diff-analyze` endpoint |
-| `analyzer.py` | Instructor-wrapped OpenAI client, Pydantic output schema |
+| `main.py` | FastAPI app with `/diff-analyze`, `/broadcast`, `/trigger-demo` endpoints |
+| `analyzer.py` | Instructor-wrapped Anthropic client; feeds registry slice + diff to Claude |
 | `dispatcher.py` | JWT generation → Installation Token → repository_dispatch broadcast |
-| `schemas.py` | All Pydantic models (input, output, GitHub payloads) |
-| `config.py` | Env vars, Supabase client init |
+| `schemas.py` | Pydantic models: `DiffAnalysis`, `PackageChange`, `BreakingChange`, `BroadcastResult` |
+| `registry.py` | Static per-provider SDK registry (candidate packages the LLM assigns changes to) |
+| `config.py` | Env vars, Supabase client init, GitHub App PEM loading |
 
 ## Pydantic Output Schema (Strict)
 
+One `DiffAnalysis` per ToS diff, containing one `PackageChange` per materially
+affected SDK. Unaffected packages are omitted. The edge bot iterates
+`packages` and opens one GitHub issue per matched package in the customer repo.
+
 ```python
-class TosChange(BaseModel):
-    affected_api_sdk: str
+class BreakingChange(BaseModel):
+    clause_ref: str              # "§3.2", "Section 4.1", etc. (from NEW doc)
+    description: str
+    developer_impact: str
+
+class PackageChange(BaseModel):
+    package_name: str            # "openai", "@anthropic-ai/sdk", ...
+    ecosystem: Literal["pypi", "npm", "cargo", "go", "maven", "rubygems"]
     severity: Literal["CRITICAL", "HIGH", "MEDIUM", "LOW"]
-    executive_summary: str
+    summary: str                 # package-scoped
+    breaking_changes: list[BreakingChange]
+    recommended_actions: list[str]
     dev_action_required: bool
-    changes: list[str]
+
+class DiffAnalysis(BaseModel):
+    provider: str
+    overall_severity: Literal["CRITICAL", "HIGH", "MEDIUM", "LOW"]  # max across packages
+    summary: str                 # provider-wide exec summary
+    packages: list[PackageChange]
 ```
+
+## Package Registry
+
+`registry.py::PACKAGE_REGISTRY` is a static dict keyed by lowercased provider
+name. Each entry lists candidate SDKs/libraries with their ecosystem and a
+surface description. The analyzer passes the provider's slice of the registry
+into the LLM prompt; the LLM may only emit packages whose
+`(package_name, ecosystem)` pair appears in that slice. Add new providers by
+appending to the dict.
 
 ## GitHub App Auth Flow
 
@@ -51,16 +78,27 @@ Content-Type: application/json
 {
   "old_markdown": "string",
   "new_markdown": "string",
-  "source_url": "string"
+  "provider": "OpenAI"
 }
 
 Response 200:
 {
-  "affected_api_sdk": "OpenAI API",
-  "severity": "HIGH",
-  "executive_summary": "...",
-  "dev_action_required": true,
-  "changes": ["...", "..."]
+  "provider": "OpenAI",
+  "overall_severity": "HIGH",
+  "summary": "...",
+  "packages": [
+    {
+      "package_name": "openai",
+      "ecosystem": "pypi",
+      "severity": "HIGH",
+      "summary": "...",
+      "breaking_changes": [
+        {"clause_ref": "§3.2", "description": "...", "developer_impact": "..."}
+      ],
+      "recommended_actions": ["..."],
+      "dev_action_required": true
+    }
+  ]
 }
 ```
 
@@ -76,7 +114,10 @@ curl -X POST http://localhost:8000/diff-analyze \
 
 ## Common Pitfalls
 
-- Instructor requires `instructor.from_openai(OpenAI())` — don't use raw client
+- Instructor requires `instructor.from_anthropic(Anthropic())` — don't use raw client
+- Anthropic's `messages.create` needs an explicit `max_tokens` (set via `ANTHROPIC_MAX_TOKENS`) and `system` is a top-level kwarg, not a role in `messages`
 - PyJWT: use `jwt.encode(payload, key, algorithm="RS256")` — the key must be the raw PEM string
 - GitHub Installation Tokens expire in 1 hour — generate fresh per broadcast cycle
-- `repository_dispatch` payload max is ~10KB — keep `changes` list concise
+- `repository_dispatch` payload max is ~10KB — keep per-package `breaking_changes` and `recommended_actions` lists concise; with 3+ packages this limit can bite
+- The LLM must only emit packages from the registry slice it was given — the prompt enforces this, but verify on new providers before shipping
+- If the provider isn't in `PACKAGE_REGISTRY`, the analyzer still runs but returns `packages: []` with an explanatory summary

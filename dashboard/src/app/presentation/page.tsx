@@ -231,7 +231,14 @@ export default function PresentationPage() {
 
         {/* Slide 7 — Demo */}
         <Slide idx={6} registerSlide={registerSlide}>
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
+            <Image
+              src="/perry-logo.png"
+              alt="Perry"
+              width={260}
+              height={85}
+              className="h-auto w-[clamp(160px,18vw,260px)] mb-8"
+            />
             <SlideEyebrow>Live demo</SlideEyebrow>
             <h2 className="mt-6 text-[clamp(44px,6vw,88px)] leading-[0.98] font-semibold tracking-[-0.03em]">
               Let&apos;s catch one{" "}
@@ -243,14 +250,20 @@ export default function PresentationPage() {
               We&apos;ll simulate a real ToS change and watch the full pipeline
               — crawl, analyze, dispatch, issue — in under ten seconds.
             </p>
-            <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-3">
-              <a
-                href="http://localhost:3001/"
-                target="_blank"
-                rel="noopener noreferrer"
+            <div className="mt-12">
+              <button
+                type="button"
+                onClick={() => {
+                  window.open(
+                    "http://localhost:3001/",
+                    "_blank",
+                    "noopener,noreferrer",
+                  );
+                  window.location.href = "http://localhost:3000/demo";
+                }}
                 className="inline-flex items-center gap-2.5 bg-foreground text-white text-[15px] font-medium px-7 py-3 rounded-full transition-all hover:bg-foreground/85 active:scale-[0.97] shadow-lg shadow-black/10"
               >
-                Open Demo Mode
+                Start Demo Mode
                 <svg
                   width="14"
                   height="14"
@@ -263,25 +276,7 @@ export default function PresentationPage() {
                 >
                   <polyline points="9 18 15 12 9 6" />
                 </svg>
-              </a>
-              <a
-                href="http://localhost:3000/demo"
-                className="inline-flex items-center gap-2.5 bg-foreground text-white text-[15px] font-medium px-7 py-3 rounded-full transition-all hover:bg-foreground/85 active:scale-[0.97] shadow-lg shadow-black/10"
-              >
-                Open Behind the Scenes
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <polyline points="9 18 15 12 9 6" />
-                </svg>
-              </a>
+              </button>
             </div>
           </div>
         </Slide>

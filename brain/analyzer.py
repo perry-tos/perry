@@ -33,7 +33,7 @@ Inputs you receive:
   ecosystem, and a short description of its surface area.
 - The OLD and NEW ToS markdown.
 
-Rules:
+Core rules:
 - For each candidate package, decide whether the diff materially affects it.
   "Materially affects" means a developer using that package would have to
   change code, configuration, pinned versions, runtime behavior, cost
@@ -51,19 +51,30 @@ Rules:
     MEDIUM   -> default behavior shifts that are opt-out or future-dated.
     LOW      -> clarifications with no behavioral change.
 - overall_severity is the maximum severity across the emitted packages.
-  If no packages are affected, set overall_severity to LOW and write a
-  summary explaining why the diff is non-impactful for this provider's SDKs.
-- breaking_changes must cite a clause reference from the NEW document
-  (e.g. "§3.2", "Section 4.1", "Rate Limits heading").
-- developer_impact must name concrete nouns: SDK methods, endpoints, fields,
-  quotas, retention windows, billing tiers.
-- recommended_actions must be imperative and package-scoped, e.g.
-  "Pin openai<2.0 until audit complete",
-  "Call client.data_controls.opt_out() before 2026-05-01".
-- A package's dev_action_required is true iff at least one of its
-  recommended_actions requires engineering work on code touching that
-  package.
+  If no packages are affected, set overall_severity to LOW.
 - Echo the provider name exactly as supplied by the user.
+
+Brevity rules (STRICT — this output is read in a dashboard card and a GitHub
+issue; verbose prose hurts readability):
+- Provider `summary`: 1-2 sentences. Lead with the headline change and its
+  dev-facing consequence. No legal prose, no padding, no restating clause
+  numbers already covered below. ~40 words max.
+- Package `summary`: ONE sentence, ~25 words max, scoped to this SDK's
+  surface. State what changed for code using this package.
+- `BreakingChange.description`: plain statement of what the NEW clause says,
+  ~25 words max. No hedging, no meta-commentary.
+- `BreakingChange.clause_ref`: short reference from the NEW doc, e.g. "§7.A",
+  "Section 4.1". No sentences.
+- `BreakingChange.developer_impact`: concrete nouns only (SDK methods,
+  endpoints, fields, quotas, retention windows, billing tiers). ~15 words max.
+- `recommended_actions`: imperative, tech-specific, ~12 words each. Examples:
+  "Pin meridian-node<2.0 pending legal review",
+  "Call client.data_controls.opt_out() before 2026-05-01",
+  "Rotate API keys and audit outbound payload fields in charges.create()".
+- A package's dev_action_required is true iff at least one recommended_action
+  requires engineering work on code touching that package.
+- Prefer 2-4 breaking_changes and 2-4 recommended_actions per package. Merge
+  overlapping points. Cut anything a senior engineer would skim past.
 """
 
 

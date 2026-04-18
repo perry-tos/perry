@@ -211,7 +211,7 @@ export default function PresentationPage() {
             <h2 className="mt-6 text-[clamp(40px,5.5vw,80px)] leading-[1.02] font-semibold tracking-[-0.03em]">
               Your IP never{" "}
               <span className="bg-foreground text-white px-3 rounded-2xl">
-                leaves your VPC.
+                leaves your servers.
               </span>
             </h2>
             <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">

@@ -87,38 +87,19 @@ export default function PresentationPage() {
         ref={containerRef}
         className="h-[calc(100vh-3rem)] overflow-y-auto snap-y snap-mandatory scroll-smooth bg-white"
       >
-        {/* Slide 1 — Title */}
+        {/* Slide 1 — Problem */}
         <Slide idx={0} registerSlide={registerSlide}>
-          <div className="flex flex-col items-center text-center animate-fade-in-up">
-            <Image
-              src="/perry-logo.png"
-              alt="Perry"
-              width={520}
-              height={170}
-              priority
-              className="h-auto w-[clamp(260px,38vw,520px)]"
-            />
-            <p className="mt-10 text-[clamp(24px,3vw,40px)] leading-tight font-medium tracking-tight text-foreground max-w-3xl">
-              Terms changed.{" "}
-              <span className="text-muted">You didn&apos;t notice.</span> Perry
-              did.
-            </p>
-          </div>
-        </Slide>
-
-        {/* Slide 2 — Problem */}
-        <Slide idx={1} registerSlide={registerSlide}>
           <div className="max-w-4xl mx-auto text-center">
             <SlideEyebrow>The problem</SlideEyebrow>
             <h2 className="mt-6 text-[clamp(32px,4.5vw,64px)] leading-[1.05] font-semibold tracking-[-0.02em]">
-              Every API you depend on is{" "}
-              <span className="text-danger">one silent ToS edit</span> from
-              breaking your product.
+              Every modern product is built on{" "}
+              <span className="text-danger">someone else&apos;s API</span> —
+              and every API hides a ToS page that quietly changes.
             </h2>
             <p className="mt-8 text-[19px] text-muted max-w-2xl mx-auto">
-              OpenAI rewrote its data-use policy three times last year. Stripe
-              changed chargeback terms without email. AWS updated GenAI clauses
-              on a Friday night.
+              OpenAI, Stripe, AWS, Plaid, Twilio, Shopify, GitHub. One silent
+              edit about data retention, model training, or rate limits and
+              your product is suddenly out of compliance — or broken.
             </p>
             <p className="mt-6 text-[15px] font-mono uppercase tracking-widest text-muted/70">
               No one is reading the diff.
@@ -126,8 +107,8 @@ export default function PresentationPage() {
           </div>
         </Slide>
 
-        {/* Slide 3 — Stakes */}
-        <Slide idx={2} registerSlide={registerSlide}>
+        {/* Slide 2 — Stakes */}
+        <Slide idx={1} registerSlide={registerSlide}>
           <div className="max-w-5xl mx-auto">
             <SlideEyebrow className="text-center block">
               The cost of missing a line
@@ -147,8 +128,29 @@ export default function PresentationPage() {
               />
             </div>
             <p className="mt-12 text-center text-[19px] text-muted">
-              Legal can&apos;t read every page. Engineering shouldn&apos;t have
-              to.
+              One silent edit on a page nobody reads can cost you{" "}
+              <span className="text-foreground font-medium">
+                two million dollars and a weekend.
+              </span>
+            </p>
+          </div>
+        </Slide>
+
+        {/* Slide 3 — Title */}
+        <Slide idx={2} registerSlide={registerSlide}>
+          <div className="flex flex-col items-center text-center animate-fade-in-up">
+            <Image
+              src="/perry-logo.png"
+              alt="Perry"
+              width={520}
+              height={170}
+              priority
+              className="h-auto w-[clamp(260px,38vw,520px)]"
+            />
+            <p className="mt-10 text-[clamp(24px,3vw,40px)] leading-tight font-medium tracking-tight text-foreground max-w-3xl">
+              Terms changed.{" "}
+              <span className="text-muted">You didn&apos;t notice.</span> Perry
+              did.
             </p>
           </div>
         </Slide>
@@ -164,8 +166,10 @@ export default function PresentationPage() {
               The ToS intelligence layer for your engineering org.
             </h2>
             <p className="mt-8 text-[21px] leading-relaxed text-muted max-w-2xl mx-auto">
-              Install once. Perry watches every API you depend on — and tells
-              you what changed, what broke, and exactly which file to fix.
+              Perry watches every public Terms of Service page you depend on,
+              detects the diff the moment it happens, and tells your engineers
+              what changed, what it breaks, and which file to fix — as a
+              GitHub Issue opened directly in your own repo.
             </p>
           </div>
         </Slide>
@@ -183,22 +187,22 @@ export default function PresentationPage() {
               <PipelineStep
                 num="01"
                 title="Crawler"
-                body="Playwright + Wayback seeding snapshots 200+ ToS pages, SHA-256 hashed to dedupe."
+                body="Snapshots ToS pages and SHA-256 hashes the content. A hash mismatch means the page just changed."
               />
               <PipelineStep
                 num="02"
                 title="Brain"
-                body="GPT-4o + Instructor analyze the diff into structured, typed advisories."
+                body="Pulls the diff through GPT-4o with an Instructor schema and produces a typed, structured advisory."
               />
               <PipelineStep
                 num="03"
                 title="Dispatcher"
-                body="RS256-signed JWTs mint scoped GitHub installation tokens — per customer."
+                body="Signs an RS256 JWT, mints a scoped GitHub installation token per customer, and broadcasts."
               />
               <PipelineStep
                 num="04"
                 title="Edge Bot"
-                body="Runs inside your GitHub Action. Opens an Issue in your repo. Your code never leaves."
+                body="Runs inside your GitHub Action, scans your manifest for affected code, and opens an Issue in your repo."
               />
             </div>
           </div>
@@ -232,13 +236,6 @@ export default function PresentationPage() {
         {/* Slide 7 — Demo */}
         <Slide idx={6} registerSlide={registerSlide}>
           <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
-            <Image
-              src="/perry-logo.png"
-              alt="Perry"
-              width={260}
-              height={85}
-              className="h-auto w-[clamp(160px,18vw,260px)] mb-8"
-            />
             <SlideEyebrow>Live demo</SlideEyebrow>
             <h2 className="mt-6 text-[clamp(44px,6vw,88px)] leading-[0.98] font-semibold tracking-[-0.03em]">
               Let&apos;s catch one{" "}
@@ -247,8 +244,9 @@ export default function PresentationPage() {
               </span>
             </h2>
             <p className="mt-8 text-[21px] text-muted max-w-2xl mx-auto">
-              We&apos;ll simulate a real ToS change and watch the full pipeline
-              — crawl, analyze, dispatch, issue — in under ten seconds.
+              Imagine a fintech built on Stripe, OpenAI, and AWS. One of them
+              quietly edits a clause. Watch Perry crawl, analyze, dispatch,
+              and open an Issue — end-to-end, in under ten seconds.
             </p>
             <div className="mt-12">
               <button

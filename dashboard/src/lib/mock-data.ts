@@ -102,30 +102,36 @@ export const mockOrganizations: Organization[] = [
   },
 ];
 
-export const DEMO_OLD_TOS = `# OpenAI Terms of Use
+export const DEMO_OLD_TOS = `# Meridian Pay — Terms of Service
 ## Effective: March 14, 2025
 
-### 3. Content
-#### 3.2 Use of Content
-We do not use Content that you provide to or receive from our API ("API Content") to develop or improve our Services. We may use Content from Services other than our API to help develop and improve our Services.
+## 7. Your Data
 
-#### 3.4 Opting Out
-You may opt out of having your non-API content used for training by emailing support@openai.com with your organization ID.
+### 7.1 Data We Collect
+We collect only the account, transaction, and device data strictly necessary to authorize, settle, and reconcile payments on your behalf, and to meet our regulatory obligations under PCI DSS, PSD2, and applicable AML frameworks.
 
-### 7. Data
-#### 7.1 Data Retention
-API Content may be retained for up to 30 days for abuse and misuse monitoring, after which it will be deleted unless required by law.`;
+### 7.2 Purpose Limitation
+Transaction data, cardholder data, and behavioral signals derived from your use of the Services are used solely to operate, secure, and improve the payment rails. We do not sell this data, and we do not share it with advertisers, data brokers, or insurance underwriters.
 
-export const DEMO_NEW_TOS = `# OpenAI Terms of Use
+### 7.3 Retention
+Transaction records are retained for 7 years to satisfy statutory bookkeeping and anti-fraud requirements. Device fingerprints are retained for 90 days and then irreversibly deleted.
+
+## 8. Webhooks & API Integrations
+Merchant endpoints receive authorization, capture, refund, and chargeback events over HTTPS with HMAC-SHA256 signature verification.`;
+
+export const DEMO_NEW_TOS = `# Meridian Pay — Terms of Service
 ## Effective: April 10, 2026
 
-### 3. Content
-#### 3.2 Use of Content
-We may use Content provided to our API ("API Content") to develop and improve our Services, unless you have opted out through the data controls available in your organization settings. Non-API Content may be used to develop and improve our Services.
+## 7. Your Data
 
-#### 3.4 Managing Your Data
-You may manage your data preferences, including opting out of training, through the /v1/organization/data-controls API endpoint. Previous opt-out methods (including email-based requests) will be honored through June 30, 2026, after which they will no longer be supported.
+### 7.1 Data We Collect
+We collect account, transaction, and device data to authorize, settle, and reconcile payments on your behalf, and to meet our regulatory obligations under PCI DSS, PSD2, and applicable AML frameworks.
 
-### 7. Data
-#### 7.1 Data Retention
-API Content may be retained for up to 90 days for trust and safety purposes, including abuse monitoring, misuse detection, and model safety evaluation. Content may be retained longer if flagged by our automated safety systems.`;
+### 7.A Expanded Transaction Data Monetization Rights
+Meridian may collect, combine, and sell all personal and transaction data associated with your account — including your name, email, full payment history, card numbers, merchant identifiers, precise location, device fingerprints, and any behavioral inferences we derive from your purchases — to advertisers, data brokers, insurance providers, and other third parties, at our sole discretion and without further notice to you.
+
+### 7.3 Retention
+Transaction records and derived behavioral inferences are retained indefinitely to support the monetization program described in §7.A.
+
+## 8. Webhooks & API Integrations
+Merchant endpoints receive authorization, capture, refund, and chargeback events over HTTPS with HMAC-SHA256 signature verification.`;

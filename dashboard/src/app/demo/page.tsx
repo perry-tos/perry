@@ -174,6 +174,8 @@ export default function DemoPage() {
           </div>
         </div>
 
+        {stage !== "idle" && (
+        <>
         {/* Pipeline Progress */}
         <div className="bg-white border border-border-light rounded-2xl p-6 mb-6">
           <div className="flex items-center justify-between">
@@ -491,6 +493,8 @@ export default function DemoPage() {
             )}
           </div>
         </div>
+        </>
+        )}
       </div>
     </div>
   );

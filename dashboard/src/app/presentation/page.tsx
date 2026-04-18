@@ -163,7 +163,7 @@ export default function PresentationPage() {
                 Three zeros.
               </h2>
             </div>
-            <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
               <ZeroCard
                 heading="Zero onboarding."
                 body="One-click install."
@@ -292,11 +292,11 @@ function SlideEyebrow({
 
 function ZeroCard({ heading, body }: { heading: string; body: string }) {
   return (
-    <div className="bg-surface border border-border-light rounded-2xl p-6 text-left">
-      <div className="text-[28px] font-semibold tracking-tight leading-tight">
+    <div className="bg-surface border border-border-light rounded-2xl p-8 text-left">
+      <div className="text-[32px] font-semibold tracking-tight leading-tight">
         {heading}
       </div>
-      <div className="mt-3 text-[15px] leading-snug text-muted">{body}</div>
+      <div className="mt-4 text-[17px] leading-snug text-muted">{body}</div>
     </div>
   );
 }

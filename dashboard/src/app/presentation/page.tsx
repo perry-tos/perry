@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Navbar } from "@/components/navbar";
 
-const SLIDE_COUNT = 7;
+const SLIDE_COUNT = 6;
 
 export default function PresentationPage() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -87,51 +87,31 @@ export default function PresentationPage() {
         ref={containerRef}
         className="h-[calc(100vh-3rem)] overflow-y-auto snap-y snap-mandatory scroll-smooth bg-white"
       >
-        {/* Slide 1 — Problem */}
+        {/* Slide 1 — Problem (Stripe) */}
         <Slide idx={0} registerSlide={registerSlide}>
           <div className="max-w-4xl mx-auto text-center">
             <SlideEyebrow>The problem</SlideEyebrow>
             <h2 className="mt-6 text-[clamp(32px,4.5vw,64px)] leading-[1.05] font-semibold tracking-[-0.02em]">
-              Every modern product is built on{" "}
-              <span className="text-danger">someone else&apos;s API</span> —
-              and every API hides a ToS page that quietly changes.
+              Overnight, Stripe added{" "}
+              <span className="text-danger">two new partners </span> to your
+              customers&apos; data.
             </h2>
-            <p className="mt-8 text-[19px] text-muted max-w-2xl mx-auto">
-              OpenAI, Stripe, AWS, Plaid, Twilio, Shopify, GitHub. One silent
-              edit about data retention, model training, or rate limits and
-              your product is suddenly out of compliance — or broken.
-            </p>
-            <p className="mt-6 text-[15px] font-mono uppercase tracking-widest text-muted/70">
-              No one is reading the diff.
+            <p className="mt-8 text-[15px] font-mono uppercase tracking-widest text-muted/70">
+              You have no idea.
             </p>
           </div>
         </Slide>
 
-        {/* Slide 2 — Stakes */}
+        {/* Slide 2 — Why it keeps happening */}
         <Slide idx={1} registerSlide={registerSlide}>
-          <div className="max-w-5xl mx-auto">
-            <SlideEyebrow className="text-center block">
-              The cost of missing a line
-            </SlideEyebrow>
-            <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-5">
-              <StatCard
-                big="47%"
-                label="of engineering teams discover ToS violations in production"
-              />
-              <StatCard
-                big="$2.3M"
-                label="average settlement when an API provider terminates mid-contract"
-              />
-              <StatCard
-                big="14 days"
-                label="median notice period before providers enforce new clauses"
-              />
-            </div>
-            <p className="mt-12 text-center text-[19px] text-muted">
-              One silent edit on a page nobody reads can cost you{" "}
-              <span className="text-foreground font-medium">
-                two million dollars and a weekend.
-              </span>
+          <div className="max-w-4xl mx-auto text-center">
+            <SlideEyebrow>Why it keeps happening</SlideEyebrow>
+            <h2 className="mt-6 text-[clamp(32px,4.5vw,64px)] leading-[1.05] font-semibold tracking-[-0.02em]">
+              A small company runs on{" "}
+              <span className="text-danger">ten-plus providers.</span>
+            </h2>
+            <p className="mt-8 text-[15px] font-mono uppercase tracking-widest text-muted/70">
+              The information isn&apos;t hidden. It just never reaches you.
             </p>
           </div>
         </Slide>
@@ -163,78 +143,39 @@ export default function PresentationPage() {
               Meet Perry
             </div>
             <h2 className="text-[clamp(36px,5vw,72px)] leading-[1.02] font-semibold tracking-[-0.03em]">
-              The ToS intelligence layer for your engineering org.
+              Providers write ToS for lawyers. Perry writes them for you.
             </h2>
-            <p className="mt-8 text-[21px] leading-relaxed text-muted max-w-2xl mx-auto">
-              Perry watches every public Terms of Service page you depend on,
-              detects the diff the moment it happens, and tells your engineers
-              what changed, what it breaks, and which file to fix — as a
-              GitHub Issue opened directly in your own repo.
-            </p>
           </div>
         </Slide>
 
-        {/* Slide 5 — How it works */}
+        {/* Slide 5 — Three zeros */}
         <Slide idx={4} registerSlide={registerSlide}>
-          <div className="max-w-6xl mx-auto w-full">
-            <div className="text-center mb-14">
-              <SlideEyebrow>Architecture</SlideEyebrow>
-              <h2 className="mt-6 text-[clamp(30px,4vw,52px)] font-semibold tracking-tight">
-                Four services. One zero-knowledge pipeline.
+          <div className="max-w-5xl mx-auto w-full">
+            <div className="text-center">
+              <SlideEyebrow>A no-brainer to install</SlideEyebrow>
+              <h2 className="mt-6 text-[clamp(36px,5vw,72px)] font-semibold tracking-[-0.03em]">
+                Three zeros.
               </h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-              <PipelineStep
-                num="01"
-                title="Crawler"
-                body="Snapshots ToS pages and SHA-256 hashes the content. A hash mismatch means the page just changed."
+            <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-5">
+              <ZeroCard
+                heading="Zero onboarding."
+                body="One-click install."
               />
-              <PipelineStep
-                num="02"
-                title="Brain"
-                body="Pulls the diff through GPT-4o with an Instructor schema and produces a typed, structured advisory."
+              <ZeroCard
+                heading="Zero code access."
+                body="Your code never leaves your company."
               />
-              <PipelineStep
-                num="03"
-                title="Dispatcher"
-                body="Signs an RS256 JWT, mints a scoped GitHub installation token per customer, and broadcasts."
-              />
-              <PipelineStep
-                num="04"
-                title="Edge Bot"
-                body="Runs inside your GitHub Action, scans your manifest for affected code, and opens an Issue in your repo."
+              <ZeroCard
+                heading="Zero noise."
+                body="Only providers you actually use."
               />
             </div>
           </div>
         </Slide>
 
-        {/* Slide 6 — Zero-knowledge moat */}
+        {/* Slide 6 — Demo */}
         <Slide idx={5} registerSlide={registerSlide}>
-          <div className="max-w-4xl mx-auto text-center">
-            <SlideEyebrow>What makes Perry different</SlideEyebrow>
-            <h2 className="mt-6 text-[clamp(40px,5.5vw,80px)] leading-[1.02] font-semibold tracking-[-0.03em]">
-              Your IP never{" "}
-              <span className="bg-foreground text-white px-3 rounded-2xl">
-                leaves your servers.
-              </span>
-            </h2>
-            <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
-              <ComparisonCard
-                tone="bad"
-                title="Other tools"
-                body="Scan your codebase from the outside. Your proprietary prompts, schemas, and business logic sit on a vendor server."
-              />
-              <ComparisonCard
-                tone="good"
-                title="Perry"
-                body="Broadcasts a structured advisory. The match-against-your-code step runs inside your own GitHub Action. We only see public ToS pages."
-              />
-            </div>
-          </div>
-        </Slide>
-
-        {/* Slide 7 — Demo */}
-        <Slide idx={6} registerSlide={registerSlide}>
           <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
             <SlideEyebrow>Live demo</SlideEyebrow>
             <h2 className="mt-6 text-[clamp(44px,6vw,88px)] leading-[0.98] font-semibold tracking-[-0.03em]">
@@ -244,9 +185,8 @@ export default function PresentationPage() {
               </span>
             </h2>
             <p className="mt-8 text-[21px] text-muted max-w-2xl mx-auto">
-              Imagine a fintech built on Stripe, OpenAI, and AWS. One of them
-              quietly edits a clause. Watch Perry crawl, analyze, dispatch,
-              and open an Issue — end-to-end, in under ten seconds.
+              A fifteen-person AI startup using Meridian Pay. A clause quietly
+              changes.
             </p>
             <div className="mt-12">
               <button
@@ -344,65 +284,13 @@ function SlideEyebrow({
   );
 }
 
-function StatCard({ big, label }: { big: string; label: string }) {
+function ZeroCard({ heading, body }: { heading: string; body: string }) {
   return (
     <div className="bg-surface border border-border-light rounded-2xl p-6 text-left">
-      <div className="text-[44px] font-semibold tracking-tight leading-none">
-        {big}
+      <div className="text-[28px] font-semibold tracking-tight leading-tight">
+        {heading}
       </div>
-      <div className="mt-3 text-[14px] leading-snug text-muted">{label}</div>
-    </div>
-  );
-}
-
-function PipelineStep({
-  num,
-  title,
-  body,
-}: {
-  num: string;
-  title: string;
-  body: string;
-}) {
-  return (
-    <div className="bg-white border border-border-light rounded-2xl p-5">
-      <div className="text-[11px] font-mono text-muted/60 uppercase tracking-widest">
-        {num}
-      </div>
-      <div className="mt-3 text-[18px] font-semibold tracking-tight">
-        {title}
-      </div>
-      <p className="mt-2 text-[13px] leading-relaxed text-muted">{body}</p>
-    </div>
-  );
-}
-
-function ComparisonCard({
-  tone,
-  title,
-  body,
-}: {
-  tone: "good" | "bad";
-  title: string;
-  body: string;
-}) {
-  const accent =
-    tone === "good"
-      ? "border-success/40 bg-success/5"
-      : "border-border-light bg-surface";
-  const badgeColor = tone === "good" ? "text-success" : "text-danger";
-  const icon = tone === "good" ? "✓" : "✕";
-  return (
-    <div className={`rounded-2xl border p-6 ${accent}`}>
-      <div
-        className={`inline-flex items-center gap-2 text-[12px] font-mono uppercase tracking-widest ${badgeColor}`}
-      >
-        <span className="text-[14px]">{icon}</span>
-        {title}
-      </div>
-      <p className="mt-3 text-[15px] leading-relaxed text-foreground/80">
-        {body}
-      </p>
+      <div className="mt-3 text-[15px] leading-snug text-muted">{body}</div>
     </div>
   );
 }

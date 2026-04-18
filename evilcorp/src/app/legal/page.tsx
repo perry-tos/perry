@@ -26,6 +26,7 @@ export default function LegalPage() {
   const [phase, setPhase] = useState<DemoPhase>("idle");
   const [typedChars, setTypedChars] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [stealth, setStealth] = useState(false);
   const anchorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -37,6 +38,19 @@ export default function LegalPage() {
         setLastUpdated(data.lastUpdated);
         setIsLoading(false);
       });
+  }, []);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.code !== "Space" && e.key !== " ") return;
+      const t = e.target as HTMLElement | null;
+      const tag = t?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || t?.isContentEditable) return;
+      e.preventDefault();
+      setStealth((s) => !s);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, []);
 
   const animatedScrollTo = useCallback((targetY: number, duration: number) => {
@@ -217,13 +231,16 @@ export default function LegalPage() {
               {beforeAnchor}
               <div ref={anchorRef} className="scroll-mt-48" />
 
-              {showInjected && (
-                <InjectedParagraph
-                  typedChars={typedChars}
-                  isTyping={phase === "typing"}
-                  showHighlights={showHighlights}
-                />
-              )}
+              {showInjected &&
+                (stealth ? (
+                  <>{`\n\n§7.A  Expanded Transaction Data Monetization Rights.  ${BAD_PARAGRAPH}\n\n`}</>
+                ) : (
+                  <InjectedParagraph
+                    typedChars={typedChars}
+                    isTyping={phase === "typing"}
+                    showHighlights={showHighlights}
+                  />
+                ))}
 
               {afterAnchor}
             </div>

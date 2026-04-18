@@ -43,6 +43,29 @@ PACKAGE_REGISTRY: dict[str, list[RegistryEntry]] = {
             ),
         ),
     ],
+    "meridian pay": [
+        RegistryEntry(
+            package_name="meridian-node",
+            ecosystem="npm",
+            surface=(
+                "Official Node.js SDK. Covers card authorization, capture, "
+                "refunds, payouts, stablecoin settlement, webhook signature "
+                "verification, and customer/PII storage. Affected by any "
+                "data-handling, privacy, retention, monetization, or "
+                "consent-flow change."
+            ),
+        ),
+        RegistryEntry(
+            package_name="meridian-python",
+            ecosystem="pypi",
+            surface=(
+                "Official Python SDK. Same surface as meridian-node — "
+                "authorization, settlement, reconciliation, webhooks, and "
+                "customer data storage. Affected by any data-handling, "
+                "privacy, retention, monetization, or consent-flow change."
+            ),
+        ),
+    ],
 }
 
 

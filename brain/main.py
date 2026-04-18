@@ -17,55 +17,57 @@ app.add_middleware(
 )
 
 
-DEMO_PROVIDER = "OpenAI"
+DEMO_PROVIDER = "Meridian Pay"
 
-DEMO_OLD_MARKDOWN = """# OpenAI Terms of Use
+DEMO_OLD_MARKDOWN = """# Meridian Pay — Terms of Service
 
-## 3. Content
+## 7. Your Data
 
-### 3.1 Your Content
-You retain your ownership rights in Content that you submit to the Services
-("Input"). Subject to your compliance with these Terms, OpenAI hereby assigns to
-you all of its right, title and interest in and to Output.
+### 7.1 Data We Collect
+We collect only the account, transaction, and device data strictly necessary
+to authorize, settle, and reconcile payments on your behalf, and to meet our
+regulatory obligations under PCI DSS, PSD2, and applicable AML frameworks.
 
-### 3.2 Use of Content to Improve Services
-We do not use Content that you provide to or receive from our API ("API Content")
-to develop or improve our Services. We may use Content from Services other than
-our API ("Non-API Content") to help develop and improve our Services.
+### 7.2 Purpose Limitation
+Transaction data, cardholder data, and behavioral signals derived from your
+use of the Services are used solely to operate, secure, and improve the
+payment rails. We do not sell this data, and we do not share it with
+advertisers, data brokers, or insurance underwriters.
 
-### 3.3 Data Retention
-API Content is retained for 30 days for abuse-monitoring purposes and then
-permanently deleted, unless otherwise required by law.
+### 7.3 Retention
+Transaction records are retained for 7 years to satisfy statutory bookkeeping
+and anti-fraud requirements. Device fingerprints are retained for 90 days and
+then irreversibly deleted.
 
-## 4. Rate Limits
-Default tier-1 accounts are granted 10,000 RPM on gpt-4o endpoints.
+## 8. Webhooks & API Integrations
+Merchant endpoints receive authorization, capture, refund, and chargeback
+events over HTTPS with HMAC-SHA256 signature verification.
 """
 
-DEMO_NEW_MARKDOWN = """# OpenAI Terms of Use
+DEMO_NEW_MARKDOWN = """# Meridian Pay — Terms of Service
 
-## 3. Content
+## 7. Your Data
 
-### 3.1 Your Content
-You retain your ownership rights in Content that you submit to the Services
-("Input"). Subject to your compliance with these Terms, OpenAI hereby assigns to
-you all of its right, title and interest in and to Output.
+### 7.1 Data We Collect
+We collect account, transaction, and device data to authorize, settle, and
+reconcile payments on your behalf, and to meet our regulatory obligations
+under PCI DSS, PSD2, and applicable AML frameworks.
 
-### 3.2 Use of Content to Improve Services
-Effective May 1, 2026, OpenAI may use API Content submitted via the
-`/v1/chat/completions` and `/v1/responses` endpoints to train and improve our
-models, unless (a) you are subscribed to an Enterprise plan, or (b) you have
-explicitly opted out via the Data Controls dashboard at least 24 hours before
-the effective date.
+### 7.A Expanded Transaction Data Monetization Rights
+Meridian may collect, combine, and sell all personal and transaction data
+associated with your account — including your name, email, full payment
+history, card numbers, merchant identifiers, precise location, device
+fingerprints, and any behavioral inferences we derive from your purchases — to
+advertisers, data brokers, insurance providers, and other third parties, at
+our sole discretion and without further notice to you.
 
-### 3.3 Data Retention
-API Content subject to Section 3.2 will be retained for up to 90 days to support
-model-training pipelines. Enterprise and opted-out traffic remains on the prior
-30-day retention window.
+### 7.3 Retention
+Transaction records and derived behavioral inferences are retained
+indefinitely to support the monetization program described in §7.A.
 
-## 4. Rate Limits
-Effective immediately, the default tier-1 rate limit for gpt-4o endpoints is
-reduced from 10,000 RPM to 3,500 RPM. Per-token pricing is unchanged.
-Customers requiring the prior limit must request a tier upgrade.
+## 8. Webhooks & API Integrations
+Merchant endpoints receive authorization, capture, refund, and chargeback
+events over HTTPS with HMAC-SHA256 signature verification.
 """
 
 

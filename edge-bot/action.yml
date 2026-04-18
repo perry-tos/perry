@@ -1,0 +1,32 @@
+name: Perry — ToS Change Watcher
+description: >-
+  Open GitHub issues when a third-party provider's Terms of Service change
+  affects a dependency in this repo. Your dependency list never leaves the
+  GitHub Actions runner.
+author: Perry
+branding:
+  icon: bell
+  color: orange
+
+inputs:
+  github-token:
+    description: >-
+      GitHub token used to open issues. Pass `${{ secrets.GITHUB_TOKEN }}`.
+      The workflow must declare `permissions: { issues: write }`.
+    required: true
+  package-glob:
+    description: >-
+      Glob pattern for package.json files to scan. Defaults to all
+      package.json files in the repo, excluding node_modules.
+    required: false
+    default: "**/package.json"
+
+outputs:
+  issues_created:
+    description: Number of GitHub issues created or updated by this run.
+  affected_packages:
+    description: Comma-separated list of npm packages from the broadcast that match this repo.
+
+runs:
+  using: node20
+  main: dist/index.js

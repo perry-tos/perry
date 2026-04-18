@@ -1,0 +1,33 @@
+# Drop this file at .github/workflows/perry.yml in your repo.
+#
+# Prerequisite: install the Perry GitHub App on this repository.
+# The Perry brain dispatches `tos_alert_broadcast` events through that App
+# whenever a tracked provider's Terms of Service change.
+
+name: Perry — ToS Change Watcher
+
+on:
+  repository_dispatch:
+    types: [tos_alert_broadcast]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      # Sparse-checkout pulls only the package.json files Perry needs to scan.
+      # Your source code never touches the runner.
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            package.json
+            **/package.json
+          sparse-checkout-cone-mode: false
+
+      - uses: perry-tos/edge-bot@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}

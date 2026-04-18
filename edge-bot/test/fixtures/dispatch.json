@@ -1,0 +1,50 @@
+{
+  "action": "tos_alert_broadcast",
+  "repository": {
+    "full_name": "perry-tos/demo-app",
+    "name": "demo-app",
+    "owner": { "login": "perry-tos" }
+  },
+  "client_payload": {
+    "provider": "OpenAI",
+    "overall_severity": "HIGH",
+    "summary": "OpenAI updated its API terms of service. New retention defaults and stricter rate limits affect production deployments using the official SDK.",
+    "packages": [
+      {
+        "package_name": "openai",
+        "ecosystem": "npm",
+        "severity": "HIGH",
+        "summary": "Default 30-day prompt/completion retention was reintroduced for non-enterprise tiers, and per-org rate limits dropped by 40% for chat completions.",
+        "breaking_changes": [
+          {
+            "clause_ref": "§4.2",
+            "description": "Prompts and completions are retained for up to 30 days for abuse monitoring on Standard and Team tiers.",
+            "developer_impact": "Anything sent through chat.completions.create may be persisted off-platform for 30 days. Re-evaluate PII redaction before send."
+          },
+          {
+            "clause_ref": "§7.1",
+            "description": "Per-organization TPM limits for gpt-4o reduced from 500k to 300k tokens/min.",
+            "developer_impact": "Existing burst-heavy ingestion jobs will start hitting 429 responses. Add retry-with-backoff and reconsider batch sizes."
+          }
+        ],
+        "recommended_actions": [
+          "Audit any user-content prompts sent to openai for PII before the next deploy.",
+          "Wrap chat.completions.create calls with exponential backoff on 429.",
+          "Consider requesting a tier upgrade if sustained TPM > 250k."
+        ],
+        "dev_action_required": true
+      },
+      {
+        "package_name": "@openai/agents",
+        "ecosystem": "npm",
+        "severity": "MEDIUM",
+        "summary": "Agent tool-use traces are now logged for safety review on Standard tier.",
+        "breaking_changes": [],
+        "recommended_actions": [
+          "Document the new logging behavior in your internal AI usage policy."
+        ],
+        "dev_action_required": false
+      }
+    ]
+  }
+}

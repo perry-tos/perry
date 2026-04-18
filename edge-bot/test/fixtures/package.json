@@ -1,0 +1,13 @@
+{
+  "name": "perry-edge-bot-fixture",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "express": "^4.19.2",
+    "openai": "^4.40.0",
+    "redis": "^4.6.13"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  }
+}

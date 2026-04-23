@@ -17,7 +17,9 @@
       "Bash(ruff *)",
       "Bash(prettier *)",
       "Bash(tsc *)",
-      "Bash(ncc *)"
+      "Bash(ncc *)",
+      "Read(//private/tmp/**)",
+      "WebFetch(domain:strawberrybrowser.com)"
     ]
   }
 }

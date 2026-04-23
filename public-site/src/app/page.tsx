@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { EarlyAccessForm } from "@/components/early-access-form";
 import { HeroGrid } from "@/components/hero-grid";
 import { Navbar } from "@/components/navbar";
 
@@ -178,41 +179,29 @@ such updates.`}</pre>
         </div>
       </section>
 
-      {/* Closing CTA */}
-      <section className="border-t border-border-light px-6 py-28 sm:py-36">
-        <div className="max-w-2xl mx-auto text-center">
-          <SectionEyebrow>Early access</SectionEyebrow>
-          <h2 className="mt-6 text-[clamp(32px,4vw,56px)] font-semibold tracking-[-0.03em] leading-[1.05]">
-            Get on the{" "}
-            <span className="underline decoration-[6px] decoration-[var(--accent-amber)] underline-offset-[6px]">
-              waitlist
-            </span>
-            .
-          </h2>
-          <p className="mt-6 text-[17px] leading-relaxed text-muted">
-            The first wave is forming. Claim your spot.
-          </p>
+      {/* Closing CTA — Early access form */}
+      <section
+        id="early-access"
+        className="border-t border-border-light px-6 py-28 sm:py-36"
+      >
+        <div className="max-w-2xl mx-auto">
+          <div className="text-center">
+            <SectionEyebrow>Early access</SectionEyebrow>
+            <h2 className="mt-6 text-[clamp(32px,4vw,56px)] font-semibold tracking-[-0.03em] leading-[1.05]">
+              Request{" "}
+              <span className="underline decoration-[6px] decoration-[var(--accent-amber)] underline-offset-[6px]">
+                early access
+              </span>
+              .
+            </h2>
+            <p className="mt-6 text-[17px] leading-relaxed text-muted">
+              Bringing Perry to your company? Tell us about your team and
+              we&apos;ll reach out to get you set up.
+            </p>
+          </div>
 
           <div className="mt-12">
-            <a
-              href={WAITLIST_URL}
-              className="inline-flex items-center gap-2 bg-foreground text-white text-[15px] font-medium px-7 py-3.5 rounded-full transition-colors transition-transform duration-200 hover:bg-accent-teal active:scale-[0.97] shadow-sm"
-            >
-              Sign up for the waitlist
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </a>
+            <EarlyAccessForm />
           </div>
         </div>
       </section>

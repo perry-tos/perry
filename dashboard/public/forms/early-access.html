@@ -1,0 +1,24 @@
+<!--
+  Hidden form for Netlify Forms bot detection.
+  Place at: public/forms/early-access.html
+  The bot parses this at deploy time to register the form name.
+  The actual UI lives in the React component.
+-->
+<!doctype html>
+<html>
+  <head>
+    <title>Perry Early Access (form detection)</title>
+  </head>
+  <body>
+    <form name="early-access" netlify netlify-honeypot="bot-field" hidden>
+      <input name="bot-field" />
+      <input name="company_name" />
+      <input name="contact_name" />
+      <input name="email" />
+      <input name="website" />
+      <input name="team_size" />
+      <input name="api_providers" />
+      <input name="use_case" />
+    </form>
+  </body>
+</html>

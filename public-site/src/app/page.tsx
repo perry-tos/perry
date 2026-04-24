@@ -1,9 +1,7 @@
 import Image from "next/image";
-import { EarlyAccessForm } from "@/components/early-access-form";
 import { HeroGrid } from "@/components/hero-grid";
 import { Navbar } from "@/components/navbar";
-
-const WAITLIST_URL = "http://karlsellergren.me/perry-waitlist";
+import { WaitlistForm } from "@/components/waitlist-form";
 
 export default function Home() {
   return (
@@ -42,7 +40,7 @@ export default function Home() {
 
           <div className="animate-fade-in-up-delay-3 mt-12">
             <a
-              href={WAITLIST_URL}
+              href="#waitlist"
               className="inline-flex items-center gap-2 bg-foreground text-white text-[15px] font-medium px-7 py-3.5 rounded-full transition-colors transition-transform duration-200 hover:bg-accent-teal active:scale-[0.97] shadow-sm"
             >
               Sign up for the waitlist
@@ -179,29 +177,30 @@ such updates.`}</pre>
         </div>
       </section>
 
-      {/* Closing CTA — Early access form */}
+      {/* Closing CTA — Waitlist form */}
       <section
-        id="early-access"
+        id="waitlist"
         className="border-t border-border-light px-6 py-28 sm:py-36"
       >
         <div className="max-w-2xl mx-auto">
           <div className="text-center">
-            <SectionEyebrow>Early access</SectionEyebrow>
+            <SectionEyebrow>Waitlist</SectionEyebrow>
             <h2 className="mt-6 text-[clamp(32px,4vw,56px)] font-semibold tracking-[-0.03em] leading-[1.05]">
-              Request{" "}
+              Be the first to{" "}
               <span className="underline decoration-[6px] decoration-[var(--accent-amber)] underline-offset-[6px]">
-                early access
+                try Perry
               </span>
               .
             </h2>
             <p className="mt-6 text-[17px] leading-relaxed text-muted">
-              Bringing Perry to your company? Tell us about your team and
-              we&apos;ll reach out to get you set up.
+              We&apos;re reverse engineering the shady updates your third-party
+              providers make to their Terms of Service. Drop your email and
+              we&apos;ll reach out when Perry is ready.
             </p>
           </div>
 
           <div className="mt-12">
-            <EarlyAccessForm />
+            <WaitlistForm />
           </div>
         </div>
       </section>

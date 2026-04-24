@@ -1,8 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const WAITLIST_URL = "http://karlsellergren.me/perry-waitlist";
-
 export function Navbar() {
   return (
     <nav className="sticky top-0 z-50 backdrop-blur-xl bg-white/80 border-b border-border-light">
@@ -18,12 +16,12 @@ export function Navbar() {
           />
         </Link>
 
-        <a
-          href={WAITLIST_URL}
+        <Link
+          href="/#waitlist"
           className="text-[13px] font-medium bg-foreground text-white px-4 py-1.5 rounded-full transition-colors duration-200 hover:bg-accent-teal active:scale-[0.97]"
         >
           Sign up for the waitlist
-        </a>
+        </Link>
       </div>
     </nav>
   );

@@ -93,7 +93,7 @@ html {
   animation: pulseDot 1.8s ease-in-out infinite;
 }
 
-/* Hero grid — faint base, darker lines revealed in a circle around the cursor */
+/* Hero ToS text — faint base, darker text revealed in a circle around the cursor */
 .hero-fx {
   position: absolute;
   inset: 0;
@@ -103,18 +103,24 @@ html {
   --my: 45%;
 }
 
-.hero-grid-base,
-.hero-grid-spot {
+.hero-tos-base,
+.hero-tos-spot {
   position: absolute;
   inset: 0;
-  background-size: 48px 48px;
   pointer-events: none;
+  overflow: hidden;
+  padding: 0 1rem;
+  font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo,
+    Consolas, monospace;
+  font-size: 9px;
+  line-height: 1.45;
+  text-align: justify;
+  word-break: break-word;
+  user-select: none;
 }
 
-.hero-grid-base {
-  background-image:
-    linear-gradient(to right, rgba(29, 29, 31, 0.08) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(29, 29, 31, 0.08) 1px, transparent 1px);
+.hero-tos-base {
+  color: rgba(29, 29, 31, 0.08);
   mask-image: radial-gradient(
     ellipse 85% 75% at 50% 45%,
     rgba(0, 0, 0, 0.95) 0%,
@@ -129,10 +135,8 @@ html {
   );
 }
 
-.hero-grid-spot {
-  background-image:
-    linear-gradient(to right, rgba(29, 29, 31, 0.2) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(29, 29, 31, 0.2) 1px, transparent 1px);
+.hero-tos-spot {
+  color: rgba(29, 29, 31, 0.2);
   mask-image: radial-gradient(
     circle 130px at var(--mx) var(--my),
     rgba(0, 0, 0, 1) 0%,
@@ -148,8 +152,6 @@ html {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-grid-base,
-  .hero-grid-spot,
   .animate-pulse-dot,
   .animate-fade-in-up,
   .animate-fade-in-up-delay-1,

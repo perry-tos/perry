@@ -20,7 +20,7 @@ export function Navbar() {
           href="/#waitlist"
           className="text-[13px] font-medium bg-foreground text-white px-4 py-1.5 rounded-full transition-colors duration-200 hover:bg-accent-teal active:scale-[0.97]"
         >
-          Sign up for the waitlist
+          Waitlist
         </Link>
       </div>
     </nav>

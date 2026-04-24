@@ -103,14 +103,14 @@ export default function Home() {
                 <div className="text-[11px] font-mono uppercase tracking-[0.2em] text-muted mb-6">
                   Source · Provider legal page
                 </div>
-                <pre className="font-mono text-[12.5px] leading-[1.75] text-muted whitespace-pre-wrap">{`4.2 Sub-Processors. Provider may engage
-additional sub-processors to assist in the
-processing of Personal Data. Provider will
-notify Customer of intended additions or
-replacements by posting updates on the
-Legal Information page. Continued use of
-the Services constitutes acceptance of
-such updates.`}</pre>
+                <p className="font-mono text-[12.5px] leading-[1.75] text-muted break-words">
+                  4.2 Sub-Processors. Provider may engage additional
+                  sub-processors to assist in the processing of Personal
+                  Data. Provider will notify Customer of intended additions
+                  or replacements by posting updates on the Legal
+                  Information page. Continued use of the Services
+                  constitutes acceptance of such updates.
+                </p>
               </div>
 
               {/* Right — Perry translation */}
@@ -160,7 +160,7 @@ such updates.`}</pre>
             </h2>
           </div>
 
-          <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-10">
+          <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-10">
             <ZeroCard
               heading="onboarding"
               body="One-click install. No paperwork, no vendor review, no kickoff call."
@@ -180,7 +180,7 @@ such updates.`}</pre>
       {/* Closing CTA — Waitlist form */}
       <section
         id="waitlist"
-        className="border-t border-border-light px-6 py-28 sm:py-36"
+        className="border-t border-border-light px-6 py-20 sm:py-36"
       >
         <div className="max-w-2xl mx-auto">
           <div className="text-center">
@@ -193,13 +193,11 @@ such updates.`}</pre>
               .
             </h2>
             <p className="mt-6 text-[17px] leading-relaxed text-muted">
-              We&apos;re reverse engineering the shady updates your third-party
-              providers make to their Terms of Service. Drop your email and
-              we&apos;ll reach out when Perry is ready.
+              Drop your email — we&apos;ll reach out when Perry launches.
             </p>
           </div>
 
-          <div className="mt-12">
+          <div className="mt-10">
             <WaitlistForm />
           </div>
         </div>

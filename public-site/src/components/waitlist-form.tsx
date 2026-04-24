@@ -4,12 +4,12 @@ import { useState, type FormEvent } from 'react';
 
 const NOTIFICATION_OPTIONS: ReadonlyArray<string> = [
   'Email',
-  'GitHub issue in the affected repo',
+  'GitHub issue',
   'Jira ticket',
-  'Slack notification',
-  'Teams notification',
-  'Discord notification',
-  'Google Chat notification',
+  'Slack',
+  'Teams',
+  'Discord',
+  'Google Chat',
   'Custom',
   'Other',
 ];
@@ -80,7 +80,7 @@ export function WaitlistForm() {
       data-netlify="true"
       netlify-honeypot="bot-field"
       onSubmit={handleSubmit}
-      className="grid gap-6 rounded-2xl border border-border-light bg-white p-8 text-left shadow-[0_1px_3px_rgba(0,0,0,0.04),0_12px_40px_-12px_rgba(0,0,0,0.08)] sm:p-10"
+      className="grid gap-6 rounded-2xl border border-border-light bg-white p-6 text-left shadow-[0_1px_3px_rgba(0,0,0,0.04),0_12px_40px_-12px_rgba(0,0,0,0.08)] sm:p-10"
     >
       <input type="hidden" name="form-name" value="waitlist" />
       <p className="hidden">
@@ -93,25 +93,19 @@ export function WaitlistForm() {
         <span className="text-[13px] font-medium text-foreground">
           Work email
         </span>
-        <span className="text-[13px] text-muted">
-          We&rsquo;ll keep you posted on when Perry launches.
-        </span>
         <input
           type="email"
           name="email"
           required
-          className="mt-1 rounded-xl border border-border-light bg-white px-4 py-2.5 text-[14px] text-foreground placeholder-muted/60 outline-none transition-colors focus:border-[var(--accent-teal)] focus:ring-2 focus:ring-[rgba(35,156,148,0.2)]"
+          className="rounded-xl border border-border-light bg-white px-4 py-2.5 text-[14px] text-foreground placeholder-muted/60 outline-none transition-colors focus:border-[var(--accent-teal)] focus:ring-2 focus:ring-[rgba(35,156,148,0.2)]"
         />
       </label>
 
       <fieldset>
         <legend className="text-[13px] font-medium text-foreground">
-          Preferred way of receiving notifications{' '}
+          Preferred notification channel{' '}
           <span className="text-muted font-normal">(optional)</span>
         </legend>
-        <p className="mt-1 text-[13px] text-muted">
-          Think Snyk, Dependabot, Renovate, etc. Pick as many as you like.
-        </p>
         <div className="mt-3 flex flex-wrap gap-2">
           {NOTIFICATION_OPTIONS.map((option: string) => (
             <label

@@ -42,8 +42,8 @@ export function HeroGrid() {
     if (window.matchMedia("(hover: none)").matches) {
       let rafId = 0;
       const start = performance.now();
-      const PERIOD_X = 17000;
-      const PERIOD_Y = 36000;
+      const PERIOD_X = 14200;
+      const PERIOD_Y = 30000;
       const TWO_PI = Math.PI * 2;
       const HALF_PI = Math.PI / 2;
 

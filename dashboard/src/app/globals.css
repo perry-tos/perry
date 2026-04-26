@@ -32,6 +32,18 @@
   --color-danger: var(--danger);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Meridian Pay (evilcorp) palette — used by /meridian */
+  --color-navy-950: #05101f;
+  --color-navy-900: #081a30;
+  --color-navy-800: #0c2446;
+  --color-navy-700: #13345e;
+  --color-navy-600: #1c4a80;
+  --color-gold-500: #c9a23b;
+  --color-gold-400: #d8b653;
+  --color-gold-300: #e6ca7b;
+  --color-ivory: #f5f1e6;
+  --color-bone: #ece6d4;
 }
 
 body {
@@ -167,4 +179,60 @@ html {
   .animate-pulse-glow {
     animation: none;
   }
+}
+
+/* ── Meridian Pay landing (/meridian) ──────────────────────────
+   Scoped under .meridian-root so the evilcorp landing styles
+   don't leak into the rest of the dashboard. */
+.meridian-root {
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+.meridian-root .font-display {
+  font-family: var(--font-playfair), "Times New Roman", serif;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.meridian-root .bg-weave {
+  background-color: #05101f;
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      rgba(201, 162, 59, 0.04) 0,
+      rgba(201, 162, 59, 0.04) 1px,
+      transparent 1px,
+      transparent 14px
+    ),
+    radial-gradient(ellipse at top, rgba(28, 74, 128, 0.5), transparent 60%);
+}
+
+.meridian-root .bg-grain {
+  background-color: #f5f1e6;
+  background-image:
+    radial-gradient(rgba(5, 16, 31, 0.05) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+@keyframes meridianFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.meridian-root .animate-fade-up {
+  animation: meridianFadeUp 0.7s ease-out 0.05s both;
+}
+
+.meridian-root .animate-fade-up-delay {
+  animation: meridianFadeUp 0.7s ease-out 0.25s both;
+}
+
+.meridian-root .animate-fade-up-delay2 {
+  animation: meridianFadeUp 0.7s ease-out 0.45s both;
 }

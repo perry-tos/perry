@@ -204,12 +204,12 @@ export default function PresentationPage() {
                 type="button"
                 onClick={() => {
                   window.open(
-                    "http://localhost:3001/",
+                    "https://perry-demo.netlify.app/meridian",
                     "_blank",
                     "noopener,noreferrer",
                   );
                   window.location.href =
-                    "http://perry-tos.netlify.app/demo?autorun=1";
+                    "https://perry-demo.netlify.app/demo?autorun=1";
                 }}
                 className="inline-flex items-center gap-2.5 bg-foreground text-white text-[15px] font-medium px-7 py-3 rounded-full transition-all duration-200 hover:bg-[#239C94] active:scale-[0.97] shadow-lg shadow-black/10"
               >

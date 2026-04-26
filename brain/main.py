@@ -1,7 +1,8 @@
 import asyncio
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from analyzer import analyze_diff
 from dispatcher import broadcast_alert
@@ -15,6 +16,17 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.exception_handler(Exception)
+async def unhandled_exception_handler(request: Request, exc: Exception) -> JSONResponse:
+    return JSONResponse(
+        status_code=500,
+        content={
+            "error": "internal_server_error",
+            "detail": f"{type(exc).__name__}: {exc}",
+        },
+    )
 
 
 DEMO_PROVIDER = "Meridian Pay"

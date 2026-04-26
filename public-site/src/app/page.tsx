@@ -9,7 +9,7 @@ export default function Home() {
       <Navbar />
 
       {/* Hero */}
-      <section className="relative overflow-hidden px-6 pt-32 pb-36 sm:pt-48 sm:pb-52">
+      <section className="relative overflow-hidden px-6 pt-32 pb-36 sm:pt-48 sm:pb-52 min-h-[calc(100svh-3.5rem)] sm:min-h-0 flex flex-col justify-center sm:block">
         <HeroGrid />
         <div className="relative max-w-4xl mx-auto text-center">
           <span

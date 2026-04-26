@@ -151,12 +151,6 @@ html {
   );
 }
 
-@media (hover: none) {
-  .hero-tos-spot {
-    display: none;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .animate-pulse-dot,
   .animate-fade-in-up,

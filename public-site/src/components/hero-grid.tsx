@@ -38,7 +38,27 @@ export function HeroGrid() {
     if (!section) return;
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (window.matchMedia("(hover: none)").matches) return;
+
+    if (window.matchMedia("(hover: none)").matches) {
+      let rafId = 0;
+      const start = performance.now();
+      const PERIOD_X = 17000;
+      const PERIOD_Y = 36000;
+      const TWO_PI = Math.PI * 2;
+      const HALF_PI = Math.PI / 2;
+
+      const tick = () => {
+        const t = performance.now() - start;
+        const rect = section.getBoundingClientRect();
+        const cx = rect.width * (0.65 + 0.34 * Math.sin((TWO_PI * t) / PERIOD_X - HALF_PI));
+        const cy = rect.height * (0.45 + 0.3 * Math.sin((TWO_PI * t) / PERIOD_Y - HALF_PI));
+        wrap.style.setProperty("--mx", `${cx}px`);
+        wrap.style.setProperty("--my", `${cy}px`);
+        rafId = requestAnimationFrame(tick);
+      };
+      rafId = requestAnimationFrame(tick);
+      return () => cancelAnimationFrame(rafId);
+    }
 
     let pending = false;
     let targetXpx = 0;

@@ -86,7 +86,7 @@ export default function Home() {
             Vendor terms, watched
           </span>
 
-          <h1 className="animate-fade-in-up-delay-1 mt-8 text-[clamp(44px,6.2vw,88px)] leading-[1.02] font-extralight tracking-[-0.035em]">
+          <h1 className="animate-fade-in-up-delay-1 mt-8 text-[clamp(44px,6.2vw,88px)] leading-[1.02] font-thin tracking-[-0.035em]">
             Terms changed.{" "}
             <span style={{ color: "var(--accent-teal)" }}>
               You didn&apos;t notice.
@@ -103,7 +103,7 @@ export default function Home() {
           <div className="animate-fade-in-up-delay-3 mt-12">
             <a
               href="#waitlist"
-              className="inline-flex items-center gap-2 bg-foreground text-white text-[15px] font-medium px-7 py-3.5 rounded-full transition-colors transition-transform duration-200 hover:bg-accent-teal active:scale-[0.97] shadow-sm"
+              className="inline-flex items-center gap-2 bg-foreground text-white text-[15px] font-light px-7 py-3.5 rounded-full transition-colors transition-transform duration-200 hover:bg-accent-teal active:scale-[0.97] shadow-sm"
             >
               Sign up for the waitlist
               <svg
@@ -161,7 +161,7 @@ export default function Home() {
       <section className="border-t border-border-light bg-surface px-6 py-28 sm:py-36">
         <div className="max-w-3xl mx-auto text-center">
           <SectionEyebrow>What is Perry</SectionEyebrow>
-          <h2 className="mt-6 text-[clamp(32px,4vw,56px)] font-semibold tracking-[-0.03em] leading-[1.05]">
+          <h2 className="mt-6 text-[clamp(32px,4vw,56px)] font-normal tracking-[-0.03em] leading-[1.05]">
             We read the{" "}
             <span className="underline decoration-[3px] md:decoration-[6px] decoration-[var(--accent-amber)] underline-offset-[6px]">
               fine print
@@ -183,7 +183,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center">
             <SectionEyebrow>An advisory, translated</SectionEyebrow>
-            <h2 className="mt-6 text-[clamp(32px,4vw,56px)] font-semibold tracking-[-0.03em] leading-[1.05]">
+            <h2 className="mt-6 text-[clamp(32px,4vw,56px)] font-normal tracking-[-0.03em] leading-[1.05]">
               Legalese in.{" "}
               <span style={{ color: "var(--accent-teal)" }}>
                 Plain English out.
@@ -249,7 +249,7 @@ export default function Home() {
         <div className="max-w-5xl mx-auto">
           <div className="text-center">
             <SectionEyebrow>A no-brainer to install</SectionEyebrow>
-            <h2 className="mt-6 text-[clamp(32px,4vw,56px)] font-semibold tracking-[-0.03em] leading-[1.05]">
+            <h2 className="mt-6 text-[clamp(32px,4vw,56px)] font-normal tracking-[-0.03em] leading-[1.05]">
               Three{" "}
               <span style={{ color: "var(--accent-teal)" }}>zeros</span>.
             </h2>
@@ -280,7 +280,7 @@ export default function Home() {
         <div className="max-w-2xl mx-auto">
           <div className="text-center">
             <SectionEyebrow>Waitlist</SectionEyebrow>
-            <h2 className="mt-6 text-[clamp(32px,4vw,56px)] font-semibold tracking-[-0.03em] leading-[1.05]">
+            <h2 className="mt-6 text-[clamp(32px,4vw,56px)] font-normal tracking-[-0.03em] leading-[1.05]">
               <span className="whitespace-nowrap underline decoration-[3px] md:decoration-[6px] decoration-[var(--accent-amber)] underline-offset-[6px]">
                 Be the first
               </span>{" "}
@@ -328,7 +328,7 @@ function ToSTickerItem({
       <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted/70 tabular-nums">
         {date}
       </span>
-      <span className="font-medium text-foreground tracking-tight">
+      <span className="font-light text-foreground tracking-tight">
         {company}
       </span>
       <span className="text-muted/90">{change}</span>
@@ -350,7 +350,10 @@ function SectionEyebrow({ children }: { children: React.ReactNode }) {
 function ZeroCard({ heading, body }: { heading: string; body: string }) {
   return (
     <div className="text-left bg-white border border-border-light rounded-2xl p-8 md:p-9 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_12px_40px_-20px_rgba(0,0,0,0.08)]">
-      <div className="text-[clamp(30px,3vw,40px)] font-semibold tracking-[-0.02em] leading-[1.05]">
+      <div
+        className="text-[clamp(30px,3vw,40px)] font-medium tracking-[-0.02em] leading-[1.05]"
+        style={{ fontFamily: "var(--font-geist), sans-serif" }}
+      >
         <span className="underline decoration-[3px] md:decoration-[6px] decoration-[var(--accent-amber)] underline-offset-[6px]">
           Zero
         </span>{" "}

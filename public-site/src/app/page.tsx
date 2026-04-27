@@ -29,7 +29,7 @@ export default function Home() {
             <span style={{ color: "var(--accent-teal)" }}>
               You didn&apos;t notice.
             </span>{" "}
-            <span className="underline decoration-[6px] decoration-[var(--accent-amber)] underline-offset-[6px]">
+              <span className="underline decoration-[3px] md:decoration-[6px] decoration-[var(--accent-amber)] underline-offset-[6px]">
               Perry did.
             </span>
           </h1>
@@ -68,7 +68,7 @@ export default function Home() {
           <SectionEyebrow>What is Perry</SectionEyebrow>
           <h2 className="mt-6 text-[clamp(32px,4vw,56px)] font-semibold tracking-[-0.03em] leading-[1.05]">
             We read the{" "}
-            <span className="underline decoration-[6px] decoration-[var(--accent-amber)] underline-offset-[6px]">
+            <span className="underline decoration-[3px] md:decoration-[6px] decoration-[var(--accent-amber)] underline-offset-[6px]">
               fine print
             </span>{" "}
             so you don&apos;t have to.
@@ -186,7 +186,7 @@ export default function Home() {
           <div className="text-center">
             <SectionEyebrow>Waitlist</SectionEyebrow>
             <h2 className="mt-6 text-[clamp(32px,4vw,56px)] font-semibold tracking-[-0.03em] leading-[1.05]">
-              <span className="whitespace-nowrap underline decoration-[6px] decoration-[var(--accent-amber)] underline-offset-[6px]">
+              <span className="whitespace-nowrap underline decoration-[3px] md:decoration-[6px] decoration-[var(--accent-amber)] underline-offset-[6px]">
                 Be the first
               </span>{" "}
               to try <span style={{ color: "var(--accent-teal)" }}>Perry</span>.
@@ -234,7 +234,7 @@ function ZeroCard({ heading, body }: { heading: string; body: string }) {
   return (
     <div className="text-left bg-white border border-border-light rounded-2xl p-8 md:p-9 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_12px_40px_-20px_rgba(0,0,0,0.08)]">
       <div className="text-[clamp(30px,3vw,40px)] font-semibold tracking-[-0.02em] leading-[1.05]">
-        <span className="underline decoration-[6px] decoration-[var(--accent-amber)] underline-offset-[6px]">
+        <span className="underline decoration-[3px] md:decoration-[6px] decoration-[var(--accent-amber)] underline-offset-[6px]">
           Zero
         </span>{" "}
         <span className="text-muted">{heading}.</span>

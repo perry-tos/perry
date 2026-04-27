@@ -70,97 +70,97 @@ export default function Home() {
 
       {/* Hero + ticker fill exactly one viewport */}
       <div className="flex flex-col min-h-[calc(100svh-3.5rem)]">
-      {/* Hero */}
-      <section className="relative overflow-hidden px-6 py-20 sm:py-24 flex-1 flex flex-col justify-center">
-        <HeroGrid />
-        <div className="relative max-w-4xl mx-auto text-center">
-          <span
-            className="animate-fade-in-up inline-flex items-center gap-2 text-[12px] font-mono uppercase tracking-[0.2em]"
-            style={{ color: "var(--eyebrow)" }}
-          >
+        {/* Hero */}
+        <section className="relative overflow-hidden px-6 py-20 sm:py-24 flex-1 flex flex-col justify-center">
+          <HeroGrid />
+          <div className="relative max-w-4xl mx-auto text-center">
+            <span
+              className="animate-fade-in-up inline-flex items-center gap-2 text-[12px] font-mono uppercase tracking-[0.2em]"
+              style={{ color: "var(--eyebrow)" }}
+            >
+              <span
+                className="w-[6px] h-[6px] rounded-full animate-pulse-dot"
+                style={{ backgroundColor: "var(--accent-teal)" }}
+                aria-hidden="true"
+              />
+              Vendor terms, watched
+            </span>
+
+            <h1 className="animate-fade-in-up-delay-1 mt-8 text-[clamp(34px,4.73vw,68px)] leading-[1.02] font-thin tracking-[-0.035em]">
+              Terms changed.
+              <br />
+              <span style={{ color: "var(--accent-teal)" }}>
+                You didn&apos;t notice.
+              </span>
+              <br />
+              <span className="underline decoration-[3px] md:decoration-[6px] decoration-[var(--accent-amber)] underline-offset-[6px]">
+                Perry did.
+              </span>
+            </h1>
+
+            <p className="animate-fade-in-up-delay-2 mt-8 text-[clamp(17px,1.8vw,20px)] leading-relaxed text-muted max-w-xl mx-auto">
+              Your vendors write ToS for lawyers, Perry writes them for you.
+            </p>
+
+            <div className="animate-fade-in-up-delay-3 mt-12">
+              <a
+                href="#waitlist"
+                className="inline-flex items-center gap-2 bg-foreground text-white text-[15px] font-light px-7 py-3.5 rounded-full transition-colors transition-transform duration-200 hover:bg-accent-teal active:scale-[0.97] shadow-sm"
+              >
+                Sign up for the waitlist
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* ToS change ticker — recent real-world changes Perry tracks */}
+        <section
+          className="relative overflow-hidden border-t border-border-light bg-white py-3.5"
+          aria-label="Recently observed terms-of-service changes"
+        >
+          <div className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 z-20 hidden sm:flex items-center gap-2">
             <span
               className="w-[6px] h-[6px] rounded-full animate-pulse-dot"
               style={{ backgroundColor: "var(--accent-teal)" }}
               aria-hidden="true"
             />
-            Vendor terms, watched
-          </span>
-
-          <h1 className="animate-fade-in-up-delay-1 mt-8 text-[clamp(34px,4.73vw,68px)] leading-[1.02] font-thin tracking-[-0.035em]">
-            Terms changed.
-            <br />
-            <span style={{ color: "var(--accent-teal)" }}>
-              You didn&apos;t notice.
-            </span>
-            <br />
-            <span className="underline decoration-[3px] md:decoration-[6px] decoration-[var(--accent-amber)] underline-offset-[6px]">
-              Perry did.
-            </span>
-          </h1>
-
-          <p className="animate-fade-in-up-delay-2 mt-8 text-[clamp(17px,1.8vw,20px)] leading-relaxed text-muted max-w-xl mx-auto">
-            Your vendors write ToS for lawyers, Perry writes them for you.
-          </p>
-
-          <div className="animate-fade-in-up-delay-3 mt-12">
-            <a
-              href="#waitlist"
-              className="inline-flex items-center gap-2 bg-foreground text-white text-[15px] font-light px-7 py-3.5 rounded-full transition-colors transition-transform duration-200 hover:bg-accent-teal active:scale-[0.97] shadow-sm"
+            <span
+              className="font-mono text-[10px] uppercase tracking-[0.22em]"
+              style={{ color: "var(--eyebrow)" }}
             >
-              Sign up for the waitlist
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </a>
+              Live
+            </span>
           </div>
-        </div>
-      </section>
 
-      {/* ToS change ticker — recent real-world changes Perry tracks */}
-      <section
-        className="relative overflow-hidden border-t border-border-light bg-white py-3.5"
-        aria-label="Recently observed terms-of-service changes"
-      >
-        <div className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 z-20 hidden sm:flex items-center gap-2">
-          <span
-            className="w-[6px] h-[6px] rounded-full animate-pulse-dot"
-            style={{ backgroundColor: "var(--accent-teal)" }}
+          <div
+            className="flex items-center animate-[scroll_180s_linear_infinite] whitespace-nowrap w-max sm:pl-30"
             aria-hidden="true"
-          />
-          <span
-            className="font-mono text-[10px] uppercase tracking-[0.22em]"
-            style={{ color: "var(--eyebrow)" }}
           >
-            Live
-          </span>
-        </div>
+            {[...tosChanges, ...tosChanges].map((item, i) => (
+              <ToSTickerItem key={i} {...item} />
+            ))}
+          </div>
 
-        <div
-          className="flex items-center animate-[scroll_180s_linear_infinite] whitespace-nowrap w-max sm:pl-30"
-          aria-hidden="true"
-        >
-          {[...tosChanges, ...tosChanges].map((item, i) => (
-            <ToSTickerItem key={i} {...item} />
-          ))}
-        </div>
-
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-32 z-10 bg-linear-to-r from-white via-white/90 to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-32 z-10 bg-linear-to-l from-white via-white/90 to-transparent" />
-      </section>
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-32 z-10 bg-linear-to-r from-white via-white/90 to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-32 z-10 bg-linear-to-l from-white via-white/90 to-transparent" />
+        </section>
       </div>
 
       {/* What Perry does */}
-      <section className="border-t border-border-light bg-surface px-6 py-28 sm:py-36">
+      <section className="border-t border-border-light px-6 py-28 sm:py-36">
         <div className="max-w-3xl mx-auto text-center">
           <SectionEyebrow>What is Perry</SectionEyebrow>
           <h2 className="mt-6 text-[clamp(32px,4vw,56px)] font-normal tracking-[-0.03em] leading-[1.05]">
@@ -172,11 +172,61 @@ export default function Home() {
           </h2>
           <p className="mt-8 text-[17px] leading-[1.7] text-muted">
             Every business runs on outside services - payment tools, cloud
-            storage, AI systems. All of them change their terms often, buried
-            in long pages nobody reads. Perry reads every update for you.
-            When something changes that actually matters, you get a short
-            note in plain English - what changed, why it matters, what to do.
+            storage, AI systems. All of them change their terms often, buried in
+            long pages nobody reads. Perry reads every update for you. When
+            something changes that actually matters, you get a short note in
+            plain English - what changed, why it matters, what to do.
           </p>
+        </div>
+      </section>
+
+      {/* How Perry works — the four-step flow */}
+      <section className="border-t border-border-light px-6 py-28 sm:py-36  bg-surface">
+        <div className="max-w-6xl mx-auto">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="text-[clamp(32px,4vw,56px)] font-normal tracking-[-0.03em] leading-[1.05]">
+              How Perry{" "}
+              <span className="underline decoration-[3px] md:decoration-[6px] decoration-[var(--accent-amber)] underline-offset-[6px]">
+                works
+              </span>
+            </h2>
+            <p className="mt-6 text-[17px] leading-[1.65] text-muted">
+              From detection to action in seconds. Your code never leaves your
+              infrastructure.
+            </p>
+          </div>
+
+          <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+            <StepCard
+              number="01"
+              title="Detect"
+              body="Perry continuously monitors ToS pages across 200+ API providers. Changes are detected within minutes."
+              icon={<SearchIcon />}
+            />
+            <StepCard
+              number="02"
+              title="Analyze"
+              body="AI compares old and new terms, classifying severity and identifying what requires developer action."
+              icon={<PencilIcon />}
+            />
+            <StepCard
+              number="03"
+              title="Broadcast"
+              body={
+                <>
+                  A structured alert is sent to your GitHub repos via repository
+                  dispatch. No code is transmitted, only the advisory.
+                </>
+              }
+              icon={<ZapIcon />}
+            />
+            <StepCard
+              number="04"
+              title="Act"
+              body="An edge bot on your runner scans local dependencies and opens a GitHub Issue if you're affected. Code stays in your VPC."
+              icon={<ShieldIcon />}
+            />
+          </div>
         </div>
       </section>
 
@@ -202,11 +252,11 @@ export default function Home() {
                 </div>
                 <p className="font-mono text-[12.5px] leading-[1.75] text-muted break-words">
                   4.2 Sub-Processors. Provider may engage additional
-                  sub-processors to assist in the processing of Personal
-                  Data. Provider will notify Customer of intended additions
-                  or replacements by posting updates on the Legal
-                  Information page. Continued use of the Services
-                  constitutes acceptance of such updates.
+                  sub-processors to assist in the processing of Personal Data.
+                  Provider will notify Customer of intended additions or
+                  replacements by posting updates on the Legal Information page.
+                  Continued use of the Services constitutes acceptance of such
+                  updates.
                 </p>
               </div>
 
@@ -241,7 +291,6 @@ export default function Home() {
                 </p>
               </div>
             </div>
-
           </div>
         </div>
       </section>
@@ -252,8 +301,7 @@ export default function Home() {
           <div className="text-center">
             <SectionEyebrow>A no-brainer to install</SectionEyebrow>
             <h2 className="mt-6 text-[clamp(32px,4vw,56px)] font-normal tracking-[-0.03em] leading-[1.05]">
-              Three{" "}
-              <span style={{ color: "var(--accent-teal)" }}>zeros</span>.
+              Three <span style={{ color: "var(--accent-teal)" }}>zeros</span>.
             </h2>
           </div>
 
@@ -346,6 +394,83 @@ function SectionEyebrow({ children }: { children: React.ReactNode }) {
     >
       {children}
     </span>
+  );
+}
+
+function StepCard({
+  number,
+  title,
+  body,
+  icon,
+}: {
+  number: string;
+  title: string;
+  body: React.ReactNode;
+  icon: React.ReactNode;
+}) {
+  return (
+    <div className="bg-white border border-border-light rounded-2xl p-6">
+      <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--accent-teal)]">
+        {number}
+      </div>
+      <div className="mt-6 text-foreground/80">{icon}</div>
+      <h3 className="mt-6 text-[18px] font-medium tracking-[-0.01em]">
+        {title}
+      </h3>
+      <p className="mt-3 text-[14.5px] leading-[1.65] text-muted">{body}</p>
+    </div>
+  );
+}
+
+function StepIcon({ children }: { children: React.ReactNode }) {
+  return (
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      color="#239c94"
+    >
+      {children}
+    </svg>
+  );
+}
+
+function SearchIcon() {
+  return (
+    <StepIcon>
+      <circle cx="11" cy="11" r="7" />
+      <path d="m20 20-3.5-3.5" />
+    </StepIcon>
+  );
+}
+
+function PencilIcon() {
+  return (
+    <StepIcon>
+      <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4Z" />
+    </StepIcon>
+  );
+}
+
+function ZapIcon() {
+  return (
+    <StepIcon>
+      <path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z" />
+    </StepIcon>
+  );
+}
+
+function ShieldIcon() {
+  return (
+    <StepIcon>
+      <path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z" />
+    </StepIcon>
   );
 }
 
